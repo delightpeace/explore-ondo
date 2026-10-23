@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\PlaceImage;
 
-class place extends Model
+class Place extends Model
 {
     protected $fillable = [
         'name',
         'description',
         'address',
-        'latitude',
-        'longitude',
+        'lat',
+        'lng',
     ];
 
     public function images()

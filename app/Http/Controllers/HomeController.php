@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\place;
-
+use App\Models\Place;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $places = place::all();
+        $places = Place::with('images')->get();
+
         return view('home', [
-            'places' => $places
+            'places' => $places,
         ]);
     }
 }
