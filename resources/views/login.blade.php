@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login | Explore Ondo</title>
+    <title>Log In | Explore Ondo</title>
 </head>
 
 <body style="margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; font-family: Arial, sans-serif; background-color: #f4f7f5; color: #26352d; padding: 20px; box-sizing: border-box;">
@@ -16,10 +16,22 @@
         </h1>
 
         <p style="text-align: center; color: #6b786f; margin-bottom: 30px;">
-            Super Admin Login
+            Log In
         </p>
 
-        <form action="/login" method="POST">
+        @if (session('status'))
+            <p role="status" style="padding: 12px; background-color: #eaf5ee; border-radius: 6px; color: #176b45; line-height: 1.5;">{{ session('status') }}</p>
+        @endif
+
+        @if ($errors->any())
+            <div id="login-errors" role="alert" style="margin-bottom: 20px; padding: 12px; background-color: #fff1f0; border: 1px solid #e6aaa5; border-radius: 6px; color: #a12622; font-size: 14px; line-height: 1.5;">
+                @foreach ($errors->all() as $error)
+                    <p style="margin: 0;">{{ $error }}</p>
+                @endforeach
+            </div>
+        @endif
+
+        <form action="{{ route('login.submit') }}" method="POST">
             @csrf
 
             <div style="margin-bottom: 20px;">
@@ -31,6 +43,9 @@
                     type="email"
                     id="email"
                     name="email"
+                    value="{{ old('email') }}"
+                    autocomplete="username"
+                    @if ($errors->has('email')) aria-invalid="true" aria-describedby="login-errors" @endif
                     required
                     style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 15px;"
                 >
@@ -45,10 +60,16 @@
                     type="password"
                     id="password"
                     name="password"
+                    autocomplete="current-password"
+                    @if ($errors->has('password')) aria-invalid="true" aria-describedby="login-errors" @endif
                     required
                     style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 15px;"
                 >
             </div>
+
+            <p style="text-align: right; margin: -10px 0 25px; font-size: 14px;">
+                <a href="{{ route('password.request') }}" style="color: #176b45;">Forgot password?</a>
+            </p>
 
             <button
                 type="submit"
@@ -57,6 +78,10 @@
                 Log In
             </button>
         </form>
+
+        <p style="text-align: center; margin: 25px 0 0; font-size: 14px;">
+            Don't have an account? <a href="{{ route('signup') }}" style="color: #176b45;">Sign Up</a>
+        </p>
 
         <p style="text-align: center; margin: 25px 0 0; font-size: 14px;">
             <a href="/" style="color: #176b45; text-decoration: none;">

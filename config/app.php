@@ -14,6 +14,9 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+    'admin_emails' => array_filter(
+        explode(',', (string) env('ADMIN_EMAILS', ''))
+    ),
 
     /*
     |--------------------------------------------------------------------------
