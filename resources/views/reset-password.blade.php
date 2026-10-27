@@ -39,11 +39,31 @@
             </div>
             <div style="margin-bottom: 20px;">
                 <label for="password" style="display: block; margin-bottom: 8px; font-weight: bold;">New Password</label>
-                <input type="password" id="password" name="password" minlength="8" required autocomplete="new-password" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 15px;">
+                <div style="position: relative;">
+                    <input type="password" id="password" name="password" minlength="8" required autocomplete="new-password" style="width: 100%; padding: 12px 48px 12px 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 15px;">
+                    <button type="button" data-password-toggle="password" data-password-label="new password" aria-label="Show new password" aria-controls="password" aria-pressed="false"
+                        style="position: absolute; top: 0; right: 0; width: 44px; height: 100%; display: flex; align-items: center; justify-content: center; border: none; border-radius: 0 6px 6px 0; background: transparent; color: #176b45; cursor: pointer;">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                            <path data-eye-slash d="M3 3l18 18" style="display: none;"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
             <div style="margin-bottom: 20px;">
                 <label for="password_confirmation" style="display: block; margin-bottom: 8px; font-weight: bold;">Confirm New Password</label>
-                <input type="password" id="password_confirmation" name="password_confirmation" minlength="8" required autocomplete="new-password" style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 15px;">
+                <div style="position: relative;">
+                    <input type="password" id="password_confirmation" name="password_confirmation" minlength="8" required autocomplete="new-password" style="width: 100%; padding: 12px 48px 12px 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 15px;">
+                    <button type="button" data-password-toggle="password_confirmation" data-password-label="confirmed password" aria-label="Show confirmed password" aria-controls="password_confirmation" aria-pressed="false"
+                        style="position: absolute; top: 0; right: 0; width: 44px; height: 100%; display: flex; align-items: center; justify-content: center; border: none; border-radius: 0 6px 6px 0; background: transparent; color: #176b45; cursor: pointer;">
+                        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                            <path data-eye-slash d="M3 3l18 18" style="display: none;"/>
+                        </svg>
+                    </button>
+                </div>
             </div>
             <button type="submit" style="width: 100%; padding: 13px; background-color: #176b45; color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer;">Send</button>
         </form>
@@ -57,5 +77,26 @@
 
     </div>
 
+<script>
+    document.querySelectorAll('[data-password-toggle]').forEach(function (button) {
+        const input = document.getElementById(button.dataset.passwordToggle);
+        const slash = button.querySelector('[data-eye-slash]');
+
+        function setVisibility(visible) {
+            input.type = visible ? 'text' : 'password';
+            button.setAttribute('aria-label', (visible ? 'Hide ' : 'Show ') + button.dataset.passwordLabel);
+            button.setAttribute('aria-pressed', String(visible));
+            slash.style.display = visible ? '' : 'none';
+        }
+
+        button.addEventListener('click', function () {
+            setVisibility(input.type === 'password');
+        });
+
+        window.addEventListener('pageshow', function () {
+            setVisibility(false);
+        });
+    });
+</script>
 </body>
 </html>
