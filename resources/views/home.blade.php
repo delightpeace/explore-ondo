@@ -82,8 +82,15 @@
                         {{ $place->address }}
                     </p>
 
+<p>Latitude: {{ $place->lat }}</p>
 
-                    
+<p>Longitude: {{ $place->lng }}</p>
+
+ @foreach ($place->images as $image)
+    <img src="{{ asset('storage/' . $image->path) }}"
+         alt="{{ $place->name }}"
+         style="width: 100%; max-width: 300px; border-radius: 8px;">
+@endforeach
                 </article>
             @endforeach
 

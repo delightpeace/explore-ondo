@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 
 use Illuminate\Database\Seeder;
-
+use Illuminate\Support\Facades\Hash;
 
 class SuperAdminSeeder extends Seeder
 {
@@ -18,7 +18,7 @@ class SuperAdminSeeder extends Seeder
             [
                 'email' => 'adedelight11@gmail.com',
                 'name' => 'Super Admin',
-                'password' => 'Admin@12345',
+                'password' =>  Hash::make('Admin@12345'),
             ]
         );
     }

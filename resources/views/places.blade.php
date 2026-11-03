@@ -15,9 +15,9 @@
 
     <h2 style="color: #176b45;">Add a New Place</h2>
 
-    <form action="{{ route('places.add') }}" method="post"  enctype="multipart/form-data" >
-          style="max-width: 600px; margin: 20px auto; padding: 25px; background-color: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
-
+    <form action="{{ route('places.add') }}" method="post"  enctype="multipart/form-data" style="max-width: 600px; margin: 20px auto; padding: 25px; background-color: white; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+    @csrf
+          
     
 
         <div style="margin-bottom: 18px;">
@@ -87,11 +87,11 @@
                 {{ $place->name }}
             </h3>
 
-            @if ($place->image)
-                <img src="{{ asset('storage/' . $place->image) }}"
-                     alt="{{ $place->name }}"
-                     style="width: 100%; max-width: 400px; height: auto; border-radius: 8px; margin-bottom: 15px;">
-            @endif
+            @foreach ($place->images as $image)
+    <img src="{{ asset($image->url) }}"
+         alt="{{ $image->label ?? $place->name }}"
+         style="width: 100%; max-width: 400px; height: auto; border-radius: 8px; margin-bottom: 15px;">
+@endforeach
 
             <p>{{ $place->description }}</p>
 
