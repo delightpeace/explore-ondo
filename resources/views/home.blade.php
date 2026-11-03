@@ -10,13 +10,15 @@
 <body style="margin: 0; font-family: Arial, sans-serif; color: #26352d; background-color: #f7f9f7;">
 
     <!-- Navigation Bar -->
-    <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; background-color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+    <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; flex-wrap: wrap; gap: 16px; background-color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
         <h2 style="margin: 0; color: #176b45;">Explore Ondo</h2>
 
-        <div>
+        <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center;">
             <a href="/" style="margin-left: 15px; color: #176b45; text-decoration: none; font-weight: bold;">Home</a>
             <a href="#about" style="margin-left: 15px; color: #333; text-decoration: none;">About Ondo</a>
             <a href="#places" style="margin-left: 15px; color: #333; text-decoration: none;">Popular Places</a>
+            <a href="{{ route('login') }}" style="color: #176b45; text-decoration: none;">Log In</a>
+            <a href="{{ route('signup') }}" style="display: inline-block; padding: 10px 16px; background-color: #176b45; color: white; border-radius: 6px; text-decoration: none; font-weight: bold;">Sign Up</a>
         </div>
     </nav>
 
