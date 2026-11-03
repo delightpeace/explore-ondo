@@ -28,7 +28,7 @@
                    style="width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
         </div>
 
-        <div style="margin-bottom: 18px;">
+        <div style="margin-bottomsssss: 18px;">
             <label for="description" style="display: block; margin-bottom: 8px; font-weight: bold;">
                 Description
             </label>
