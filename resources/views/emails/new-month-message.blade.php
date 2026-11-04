@@ -2,11 +2,19 @@
 <div style="background: linear-gradient(135deg, #176b45, #0d422c); padding: 35px 30px; border-radius: 16px; color: white; margin-bottom: 25px;">
 
     <p style="font-size: 14px; margin-bottom: 10px; opacity: 0.85;">
+<<<<<<< HEAD
+        ✨ {{ now()->('F') }}
+    </p>
+
+    <h2 style="font-size: 28px; font-weight: bold; margin-bottom: 12px;">
+        Happy New Month, {{ Auth::user()->name }}! 🎉
+=======
         ✨ NOVEMBER 2026
     </p>
 
     <h2 style="font-size: 28px; font-weight: bold; margin-bottom: 12px;">
         Happy New Month, {{ $user->name }}! 🎉
+>>>>>>> 37d540af1028cd0bf21800bbb4206c8f62309721
     </h2>
 
     <p style="font-size: 15px; line-height: 1.8; margin: 0; opacity: 0.95;">
