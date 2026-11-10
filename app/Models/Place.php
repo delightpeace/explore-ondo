@@ -3,12 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Models\PlaceImage;
 
 class Place extends Model
 {
     protected $fillable = [
         'name',
+        'category',
         'description',
         'address',
         'lat',

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PlaceController;
 use App\Http\Controllers\PlaceImageController;
 use App\Http\Middleware\SuperAdminAccess;
@@ -15,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 // });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::post('/newsletter/subscribe', NewsletterController::class)
+    ->middleware('throttle:5,1')
+    ->name('newsletter.subscribe');
+Route::get('/newsletter/subscribers', [NewsletterController::class, 'index'])
+    ->middleware(SuperAdminAccess::class)
+    ->name('newsletter.subscribers');
+Route::get('/explore', [ExploreController::class, 'index'])->name('explore.index');
+Route::get('/places/{place}', [ExploreController::class, 'show'])->name('explore.show');
 
 Route::get('/signup', [AuthController::class, 'signupForm'])->name('signup');
 Route::post('/signup', [AuthController::class, 'signup'])
@@ -52,11 +62,16 @@ Route::delete('/places/{place}', [PlaceController::class, 'delete'])
     ->name('places.delete');
 
 // Edit a place
-Route::get('/places/{place}/edit', [PlaceController::class, 'edit'])->name('places.edit');
+Route::get('/places/{place}/edit', [PlaceController::class, 'edit'])
+    ->middleware(SuperAdminAccess::class)
+    ->name('places.edit');
 
 // Update a place
-Route::post('/places/{place}/update', [PlaceController::class, 'update'])->name('places.update');
+Route::put('/places/{place}', [PlaceController::class, 'update'])
+    ->middleware(SuperAdminAccess::class)
+    ->name('places.update');
 
 // Add an image to a place
 Route::post('/places/{place}/image', [PlaceImageController::class, 'create'])
+    ->middleware(SuperAdminAccess::class)
     ->name('places.image.create');

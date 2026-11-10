@@ -7,3 +7,18 @@ use Illuminate\Support\Facades\Schedule;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+Schedule::command('app:send-new-month-greetings')
+    ->monthlyOn(1, '09:00')
+    ->timezone('Africa/Lagos')
+    ->withoutOverlapping();
+
+Schedule::command('app:send-user-greetings festive')
+    ->cron('0 9 24 12 *')
+    ->timezone('Africa/Lagos')
+    ->withoutOverlapping();
+
+Schedule::command('app:send-user-greetings new-year')
+    ->cron('0 9 1 1 *')
+    ->timezone('Africa/Lagos')
+    ->withoutOverlapping();

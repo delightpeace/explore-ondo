@@ -107,6 +107,7 @@
           enctype="multipart/form-data">
 
         @csrf
+        @method('PUT')
 
         <p>
             Name:
@@ -115,6 +116,22 @@
             @error('name')
                 <span class="error">{{ $message }}</span>
             @enderror
+        </p>
+
+        <p>
+            Category:
+            <select name="category">
+                <option value="">Choose a category</option>
+                <option value="attractions" @selected(old('category', $place->category) === 'attractions')>Attractions & heritage</option>
+                <option value="schools" @selected(old('category', $place->category) === 'schools')>Schools & education</option>
+                <option value="stays" @selected(old('category', $place->category) === 'stays')>Hotels, stays & resorts</option>
+                <option value="worship" @selected(old('category', $place->category) === 'worship')>Churches & places of worship</option>
+                <option value="markets" @selected(old('category', $place->category) === 'markets')>Markets & shopping</option>
+                <option value="food" @selected(old('category', $place->category) === 'food')>Food & restaurants</option>
+                <option value="health" @selected(old('category', $place->category) === 'health')>Healthcare</option>
+                <option value="events" @selected(old('category', $place->category) === 'events')>Events & festivals</option>
+                <option value="services" @selected(old('category', $place->category) === 'services')>Useful services</option>
+            </select>
         </p>
 
         <p>
@@ -136,35 +153,34 @@
 
         <p>
             Latitude:
-            <input type="number" name="latitude" step="any"
+            <input type="number" name="lat" step="any"
                    min="-90" max="90"
-                   value="{{ old('latitude', $place->latitude) }}">
-            @error('latitude')
+                   value="{{ old('lat', $place->lat) }}">
+            @error('lat')
                 <span class="error">{{ $message }}</span>
             @enderror
         </p>
 
         <p>
             Longitude:
-            <input type="number" name="longitude" step="any"
+            <input type="number" name="lng" step="any"
                    min="-180" max="180"
-                   value="{{ old('longitude', $place->longitude) }}">
-            @error('longitude')
+                   value="{{ old('lng', $place->lng) }}">
+            @error('lng')
                 <span class="error">{{ $message }}</span>
             @enderror
         </p>
 
         <p>
             Place Image:
-            @if ($place->image)
+            @foreach ($place->images as $image)
                 <br>
                 <img
-                    src="{{ asset('storage/' . $place->image) }}"
-                    alt="{{ $place->name }}"
+                    src="{{ asset('storage/' . $image->path) }}"
+                    alt="{{ $image->label ?? $place->name }}"
                     class="current-image"
                 >
-                <br>
-            @endif
+            @endforeach
 
             <input type="file" name="image"
                    accept="image/jpeg,image/png,image/webp">

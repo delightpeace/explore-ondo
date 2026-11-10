@@ -1,108 +1,140 @@
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explore Ondo | Discover Ondo Town</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#153f31">
+    <meta name="description" content="Discover places, people, culture and everyday life in Ondo City.">
+    <title>Explore Ondo — Find your place in the city</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @else
+        <link rel="stylesheet" href="{{ asset('css-explore-ondo.css') }}?v={{ md5_file(public_path('css-explore-ondo.css')) }}">
+    @endif
 </head>
+<body>
+    <header class="site-header">
+        <a class="brand" href="{{ route('home') }}" aria-label="Explore Ondo home">
+            <span class="brand-mark" aria-hidden="true">✳</span>
+            <span>explore<span class="brand-accent">ondo</span></span>
+        </a>
+        <nav class="main-nav" aria-label="Main navigation">
+            <a href="#discover">Discover</a>
+            <a href="#places">Places</a>
+            <a href="#about">About Ondo</a>
+        </nav>
+        <a class="button button-small" href="#newsletter">Get city updates <span aria-hidden="true">↗</span></a>
+    </header>
 
-<body style="margin: 0; font-family: Arial, sans-serif; color: #26352d; background-color: #f7f9f7;">
+    <main>
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-shade"></div>
+            <div class="hero-content">
+                <p class="eyebrow">A city of heritage, warmth & everyday wonder</p>
+                <h1 id="hero-title">Find your place<br>in Ondo.</h1>
+                <p class="hero-copy">From the heart of Ekimogun to the places locals love, discover the people, places and stories that make this city feel like home.</p>
+                <a class="button button-lime" href="#discover">Explore the city <span aria-hidden="true">→</span></a>
+            </div>
+            <div class="hero-caption">ONDO CITY · ONDO STATE · NIGERIA</div>
+        </section>
 
-    <!-- Navigation Bar -->
-    <nav style="display: flex; justify-content: space-between; align-items: center; padding: 20px 8%; flex-wrap: wrap; gap: 16px; background-color: white; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
-        <h2 style="margin: 0; color: #176b45;">Explore Ondo</h2>
+        <section class="intro content-width" id="discover">
+            <div>
+                <p class="section-kicker">Make it your Ondo</p>
+                <h2>What are you looking for?</h2>
+            </div>
+            <p class="intro-copy">A good city guide helps you find the everyday essentials and the special places worth sharing. Start with what matters to you.</p>
+        </section>
 
-        <div style="display: flex; flex-wrap: wrap; gap: 15px; align-items: center;">
-            <a href="/" style="margin-left: 15px; color: #176b45; text-decoration: none; font-weight: bold;">Home</a>
-            <a href="#about" style="margin-left: 15px; color: #333; text-decoration: none;">About Ondo</a>
-            <a href="#places" style="margin-left: 15px; color: #333; text-decoration: none;">Popular Places</a>
-            <a href="{{ route('login') }}" style="color: #176b45; text-decoration: none;">Log In</a>
-            <a href="{{ route('signup') }}" style="display: inline-block; padding: 10px 16px; background-color: #176b45; color: white; border-radius: 6px; text-decoration: none; font-weight: bold;">Sign Up</a>
+        <section class="category-grid content-width" aria-label="Explore by category">
+            <a class="category-card category-market" href="{{ route('explore.index', ['category' => 'markets']) }}"><span class="category-symbol">⌂</span><strong>Markets & shopping</strong><span>Local finds and daily life <b>↗</b></span></a>
+            <a class="category-card category-food" href="{{ route('explore.index', ['category' => 'food']) }}"><span class="category-symbol">✳</span><strong>Food & restaurants</strong><span>Good things to eat <b>↗</b></span></a>
+            <a class="category-card category-stay" href="{{ route('explore.index', ['category' => 'stays']) }}"><span class="category-symbol">⌂</span><strong>Stays & resorts</strong><span>Places to rest and unwind <b>↗</b></span></a>
+            <a class="category-card category-culture" href="{{ route('explore.index', ['category' => 'attractions']) }}"><span class="category-symbol">◉</span><strong>Culture & heritage</strong><span>Stories rooted in Ondo <b>↗</b></span></a>
+            <a class="category-card category-services" href="{{ route('explore.index') }}"><span class="category-symbol">＋</span><strong>Schools, faith & more</strong><span>Find useful places nearby <b>↗</b></span></a>
+        </section>
+
+        <section class="places-section" id="places">
+            <div class="content-width">
+                <div class="section-heading">
+                    <div><p class="section-kicker">A few good places to begin</p><h2>Discover places in Ondo</h2></div>
+                    <a class="text-link" href="{{ route('explore.index') }}">See all places <span aria-hidden="true">→</span></a>
+                </div>
+
+                @if ($places->isNotEmpty())
+                    <div class="place-grid" id="places-list">
+                        @foreach ($places as $place)
+                            <article class="place-card">
+                                @if ($place->images->isNotEmpty())
+                                    @php($coverImage = $place->images->first())
+                                    <div class="place-image-wrap">
+                                        <img class="place-image" src="{{ asset('storage/' . $coverImage->path) }}" alt="{{ $coverImage->label ?: $place->name }}" loading="lazy">
+                                    </div>
+                                @else
+                                    <div class="place-image-placeholder"><span>✳</span><small>Discover Ondo</small></div>
+                                @endif
+                                <div class="place-card-body">
+                                    <p class="place-location">Ondo City</p>
+                                    <h3><a href="{{ route('explore.show', $place) }}">{{ $place->name }}</a></h3>
+                                    <p class="place-description">{{ \Illuminate\Support\Str::limit($place->description, 125) }}</p>
+                                    @if ($place->address)
+                                        <p class="place-address"><span aria-hidden="true">⌖</span> {{ $place->address }}</p>
+                                    @endif
+                                    @if ($place->lat !== null && $place->lng !== null)
+                                        <a class="place-action" href="https://www.google.com/maps?q={{ $place->lat }},{{ $place->lng }}" target="_blank" rel="noopener noreferrer">View on map <span aria-hidden="true">↗</span></a>
+                                    @endif
+                                </div>
+                            </article>
+                        @endforeach
+                    </div>
+                @else
+                    <div class="empty-places"><span aria-hidden="true">✳</span><h3>Good things are being added</h3><p>We’re gathering the places that make Ondo special. Check back soon.</p></div>
+                @endif
+            </div>
+        </section>
+
+        <section class="about-section content-width" id="about">
+            <div class="about-mark" aria-hidden="true">O</div>
+            <div><p class="section-kicker">Rooted in Ekimogun</p><h2>Get to know Ondo.</h2><p>Ondo City is a place of deep Yoruba heritage, a welcoming community and a rhythm all its own. We’re building a guide to help residents and visitors find the places, people and experiences that bring the city to life.</p><a class="text-link" href="#newsletter">Stay connected <span aria-hidden="true">→</span></a></div>
+        </section>
+
+        <section class="quote-section content-width">
+            <p class="section-kicker">Take the scenic route</p>
+            <blockquote>“The best journeys don’t just show you somewhere new. They help you see it differently.”</blockquote>
+            <p class="quote-caption">Your next chapter starts in Ondo</p>
+        </section>
+
+        <section class="newsletter" id="newsletter">
+            <div class="newsletter-copy"><h2>A little sunshine in your inbox.</h2><p>Get destination ideas, local stories and trip inspiration from Ondo.</p></div>
+            <form class="newsletter-form" action="{{ route('newsletter.subscribe') }}" method="post">
+                @csrf
+                <label class="sr-only" for="newsletter-email">Email address</label>
+                <input id="newsletter-email" type="email" name="email" value="{{ old('email') }}" placeholder="Your email address" required maxlength="255" aria-describedby="newsletter-feedback">
+                <button type="submit">Keep me inspired <span aria-hidden="true">→</span></button>
+                <p class="newsletter-message" id="newsletter-feedback" aria-live="polite">
+                    @if (session('newsletter_status'))
+                        {{ session('newsletter_status') }}
+                    @elseif ($errors->has('email'))
+                        {{ $errors->first('email') }}
+                    @endif
+                </p>
+            </form>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-left">
+            <a class="brand footer-brand" href="{{ route('home') }}"><span class="brand-mark" aria-hidden="true">✳</span><span>explore<span class="brand-accent">ondo</span></span></a>
+            <p>Discover the Sunshine State.</p>
         </div>
-    </nav>
-
-    
-<!-- Welcome Section -->
-<section style="padding: 90px 8%; text-align: center; color: white; background-image: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url('https://nucis.ng/wp-content/uploads/2022/08/ondo.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat;">
-
-    <p style="font-size: 14px; letter-spacing: 3px; text-transform: uppercase;">
-        Discover the Beauty of Ondo
-    </p>
-
-    <h1 style="font-size: 44px; margin: 15px 0;">
-        Welcome to Ondo Town
-    </h1>
-
-    <p style="max-width: 650px; margin: 0 auto 30px; font-size: 18px; line-height: 1.8;">
-        Explore the history, culture, heritage, and remarkable places
-        that make Ondo a special part of southwestern Nigeria.
-    </p>
-
-    <a href="#places" style="display: inline-block; padding: 14px 25px; background-color: white; color: #176b45; text-decoration: none; border-radius: 6px; font-weight: bold;">
-        Explore Popular Places
-    </a>
-
-</section>
-
-
-    <!-- About Ondo -->
-    <section id="about" style="padding: 60px 8%; background-color: white;">
-        <h2 style="text-align: center; color: #176b45; font-size: 30px;">
-            About Ondo Town
-        </h2>
-
-        <p style="max-width: 850px; margin: 20px auto 0; line-height: 1.9; font-size: 16px; color: #555;">
-           Ondo Town, also known as Ode Ondo, is a historic Yoruba town located in Ondo State, southwestern Nigeria. The town is known for its rich cultural heritage, traditional leadership, and strong community values that have been preserved across generations. Its history is closely connected to the Osemawe, the traditional ruler of Ondo Kingdom, whose palace represents an important part of the town's identity and heritage. Ondo is home to cultural celebrations, local markets, educational institutions, and thriving communities that contribute to its growth and development. With its unique traditions, welcoming people, and blend of cultural heritage and modern life, Ondo Town remains a remarkable place to explore and learn about Yoruba history and culture.
-    </section>
-
-    <!-- Popular Places -->
-    <section id="places" style="padding: 60px 8%;">
-        <h2 style="text-align: center; color: #176b45; font-size: 30px;">
-            Popular Places in Ondo
-        </h2>
-
-        <p style="text-align: center; color: #666; margin-bottom: 35px;">
-            Discover places worth knowing about in Ondo town.
-        </p>
-
-        <div style="display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
-
-            @foreach ($places as $place)
-                <article style="flex: 1 1 250px; max-width: 350px; padding: 25px; background-color: white; border-radius: 10px; border: 1px solid #e2e9e3; box-shadow: 0 4px 12px rgba(0,0,0,0.04);">
-
-                    <h3 style="margin-top: 0; color: #176b45; font-size: 21px;">
-                        {{ $place->name }}
-                    </h3>
-
-                    <p style="line-height: 1.7; color: #555;">
-                        {{ $place->description }}
-                    </p>
-
-                    <p style="line-height: 1.6; color: #555;">
-                        <strong style="color: #26352d;">Address:</strong>
-                        {{ $place->address }}
-                    </p>
-
-<p>Latitude: {{ $place->lat }}</p>
-
-<p>Longitude: {{ $place->lng }}</p>
-
- @foreach ($place->images as $image)
-    <img src="{{ asset('storage/' . $image->path) }}"
-         alt="{{ $place->name }}"
-         style="width: 100%; max-width: 300px; border-radius: 8px;">
-@endforeach
-                </article>
-            @endforeach
-
+        <div class="footer-right">
+            <span>Made with care in Ondo, Nigeria</span><span aria-hidden="true">·</span><span>Instagram</span><span aria-hidden="true">·</span><span>Contact</span>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer style="padding: 25px; text-align: center; background-color: #123d2b; color: white;">
-        <p style="margin: 0;">&copy; {{ date('Y') }} Explore Ondo by Delight Adebisi. All rights reserved.</p>
+        <small class="footer-copyright">© {{ date('Y') }} Explore Ondo</small>
     </footer>
-
+    <p class="photo-credits">Image credits: <a href="https://commons.wikimedia.org/wiki/File:Traditional_local_market_in_ondo_city_of_Nigeria.jpg" target="_blank" rel="noopener noreferrer">Ondo City market — Agbadaola</a>; <a href="https://commons.wikimedia.org/wiki/File:Iya_Alaje_Market,_Ondo.jpg" target="_blank" rel="noopener noreferrer">Iya Alaje Market — Ei'eke</a>; <a href="https://commons.wikimedia.org/wiki/File:Food_Point_Restaurant.jpg" target="_blank" rel="noopener noreferrer">Food Point Restaurant — Wikimedia Commons</a>; <a href="https://commons.wikimedia.org/wiki/File:From_the_top_of_the_Pele_mountain.jpg" target="_blank" rel="noopener noreferrer">Pele mountain — Temilayo1</a>; <a href="https://commons.wikimedia.org/wiki/File:Ondo_city_gate.jpg" target="_blank" rel="noopener noreferrer">Ondo city gate — Wikimedia Commons</a>; <a href="https://commons.wikimedia.org/wiki/File:Student_Union_Government_building,_Adeyemi_College_of_Education.jpg" target="_blank" rel="noopener noreferrer">Adeyemi campus — Haylad</a>. Photos are from Wikimedia Commons; see each source page for its license and full attribution.</p>
 </body>
 </html>

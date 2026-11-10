@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Place;
-use Illuminate\Http\Request;
+use App\Models\PlaceImage;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class PlaceImageController extends Controller
 {
@@ -16,8 +17,11 @@ class PlaceImageController extends Controller
 
         $path = $request->file('image')->store('places', 'public');
 
-        $place->update([
-            'image' => $path,
+        PlaceImage::create([
+            'place_id' => $place->id,
+            'url' => 'storage/'.$path,
+            'path' => $path,
+            'label' => $place->name,
         ]);
 
         return to_route('places')

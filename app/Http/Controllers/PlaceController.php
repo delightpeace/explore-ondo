@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Place;
-use Illuminate\Http\Request;
+use App\Models\PlaceImage;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class PlaceController extends Controller
 {
+    /** @var list<string> */
+    private const CATEGORIES = ['attractions', 'schools', 'stays', 'worship', 'markets', 'food', 'health', 'events', 'services'];
+
     public function index()
     {
-        $places = Place::all();
+        $places = Place::with('images')->get();
 
         return view('places', [
-            'places' => $places
+            'places' => $places,
         ]);
     }
 
@@ -21,21 +25,34 @@ class PlaceController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
+            'category' => 'nullable|in:'.implode(',', self::CATEGORIES),
             'description' => 'nullable|string',
             'address' => 'required|string|max:255',
             'lat' => 'nullable|numeric|between:-90,90',
             'lng' => 'nullable|numeric|between:-180,180',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        Place::create($validatedData);
+        $place = Place::create($validatedData);
 
-        return redirect('/places');
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('places', 'public');
+            PlaceImage::create([
+                'place_id' => $place->id,
+                'url' => 'storage/'.$path,
+                'path' => $path,
+                'label' => $place->name,
+            ]);
+        }
+
+        return to_route('places')->with('status', 'Place added successfully.');
     }
 
     public function update(Request $request, Place $place): RedirectResponse
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
+            'category' => 'nullable|in:'.implode(',', self::CATEGORIES),
             'address' => 'required|string|max:255',
             'description' => 'nullable|string',
             'lat' => 'nullable|numeric|between:-90,90',
@@ -44,12 +61,19 @@ class PlaceController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validatedData['image'] = $request->file('image')->store('places', 'public');
+            $path = $request->file('image')->store('places', 'public');
+            PlaceImage::create([
+                'place_id' => $place->id,
+                'url' => 'storage/'.$path,
+                'path' => $path,
+                'label' => $place->name,
+            ]);
         }
 
-        Place::create($validatedData);
+        unset($validatedData['image']);
+        $place->update($validatedData);
 
-        return redirect('/places');
+        return to_route('places')->with('status', 'Place updated successfully.');
     }
 
     public function delete($id)
@@ -58,7 +82,7 @@ class PlaceController extends Controller
 
         $place->delete();
 
-        return redirect('/places');
+        return to_route('places')->with('status', 'Place deleted successfully.');
     }
 
     public function edit($id)
@@ -66,7 +90,7 @@ class PlaceController extends Controller
         $place = Place::findOrFail($id);
 
         return view('detail', [
-            'place' => $place
+            'place' => $place,
         ]);
     }
 }

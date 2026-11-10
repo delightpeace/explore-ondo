@@ -19,7 +19,7 @@ class SuperAdminAccess
         $adminEmails = config('app.admin_emails');
         $authenticatedUser = Auth::user();
 
-        if ($authenticatedUser && ! in_array($authenticatedUser->email, $adminEmails)) {
+        if (! $authenticatedUser || ! in_array($authenticatedUser->email, $adminEmails, true)) {
             return redirect()->route('login')->withErrors(['email' => 'You do not have access to this resource.']);
         }
 

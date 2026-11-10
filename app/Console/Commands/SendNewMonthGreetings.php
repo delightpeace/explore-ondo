@@ -2,11 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\SendNewMonthGreetingToUser;
-use App\Models\User;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Artisan;
 
 class SendNewMonthGreetings extends Command
 {
@@ -22,21 +19,13 @@ class SendNewMonthGreetings extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Queue personalized new-month greetings for registered users';
 
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): int
     {
-        $today = now();
-        $isFirstDayOfMonth = $today->isStartOfMonth();
-
-        // if (! $isFirstDayOfMonth) return;
-
-        User::all()->each(function (User $user) {
-            Log::info("fgghghh");
-            Mail::to($user)->send(new SendNewMonthGreetingToUser($user));
-        });
+        return Artisan::call('app:send-user-greetings', ['occasion' => 'monthly']);
     }
 }
