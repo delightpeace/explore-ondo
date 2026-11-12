@@ -25,6 +25,8 @@ Route::get('/newsletter/subscribers', [NewsletterController::class, 'index'])
     ->name('newsletter.subscribers');
 Route::get('/explore', [ExploreController::class, 'index'])->name('explore.index');
 Route::get('/places/{place}', [ExploreController::class, 'show'])->name('explore.show');
+Route::get('/about-ondo', [ExploreController::class, 'aboutOndo'])->name('about-ondo');
+Route::get('/people-and-businesses', [ExploreController::class, 'peopleAndBusinesses'])->name('people-businesses');
 
 Route::get('/signup', [AuthController::class, 'signupForm'])->name('signup');
 Route::post('/signup', [AuthController::class, 'signup'])
@@ -75,3 +77,8 @@ Route::put('/places/{place}', [PlaceController::class, 'update'])
 Route::post('/places/{place}/image', [PlaceImageController::class, 'create'])
     ->middleware(SuperAdminAccess::class)
     ->name('places.image.create');
+
+// Delete an image from a place
+Route::delete('/places/{place}/images/{image}', [PlaceImageController::class, 'destroy'])
+    ->middleware(SuperAdminAccess::class)
+    ->name('places.image.delete');

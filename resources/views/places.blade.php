@@ -133,7 +133,7 @@
                         <label for="category">Category</label>
                         <select id="category" name="category">
                             <option value="">Choose a category</option>
-                            @foreach (['attractions' => 'Attractions & heritage', 'schools' => 'Schools & education', 'stays' => 'Hotels, stays & resorts', 'worship' => 'Churches & places of worship', 'markets' => 'Markets & shopping', 'food' => 'Food & restaurants', 'health' => 'Healthcare', 'events' => 'Events & festivals', 'services' => 'Useful services'] as $value => $label)
+                            @foreach (['attractions' => 'Attractions & heritage', 'schools' => 'Schools & education', 'stays' => 'Hotels, stays & resorts', 'worship' => 'Churches & places of worship', 'markets' => 'Markets & shopping', 'food' => 'Food & restaurants', 'health' => 'Healthcare', 'events' => 'Events & festivals', 'motor-parks' => 'Motor parks & transport', 'services' => 'Useful services'] as $value => $label)
                                 <option value="{{ $value }}" @selected(old('category') === $value)>{{ $label }}</option>
                             @endforeach
                         </select>

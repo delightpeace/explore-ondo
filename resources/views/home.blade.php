@@ -16,17 +16,18 @@
     @endif
 </head>
 <body>
-    <header class="site-header">
-        <a class="brand" href="{{ route('home') }}" aria-label="Explore Ondo home">
-            <span class="brand-mark" aria-hidden="true">✳</span>
-            <span>explore<span class="brand-accent">ondo</span></span>
-        </a>
-        <nav class="main-nav" aria-label="Main navigation">
-            <a href="#discover">Discover</a>
-            <a href="#places">Places</a>
-            <a href="#about">About Ondo</a>
-        </nav>
-        <a class="button button-small" href="#newsletter">Get city updates <span aria-hidden="true">↗</span></a>
+    <header class="topbar">
+        <div class="topbar-inner">
+            <a class="brand" href="{{ route('home') }}" aria-label="Explore Ondo home"><span class="brand-mark" aria-hidden="true">✳</span><span>Explore Ondo</span></a>
+            <nav class="topbar-links" aria-label="Main navigation">
+                <a href="#discover">Discover</a>
+                <a href="#places">Places</a>
+                <a href="{{ route('explore.index', ['category' => 'events']) }}">Festivals</a>
+                <a href="{{ route('about-ondo') }}">About Ondo</a>
+                <a href="{{ route('people-businesses') }}">People & businesses</a>
+            </nav>
+            <a class="topbar-cta" href="#newsletter">Stay connected <span aria-hidden="true">↗</span></a>
+        </div>
     </header>
 
     <main>
@@ -38,7 +39,7 @@
                 <p class="hero-copy">From the heart of Ekimogun to the places locals love, discover the people, places and stories that make this city feel like home.</p>
                 <a class="button button-lime" href="#discover">Explore the city <span aria-hidden="true">→</span></a>
             </div>
-            <div class="hero-caption">ONDO CITY · ONDO STATE · NIGERIA</div>
+            <div class="hero-caption">PHOTO: <a href="https://commons.wikimedia.org/wiki/File:Ondo_city_gate.jpg" target="_blank" rel="noopener noreferrer">ONDO CITY GATE · WIKIMEDIA COMMONS (CC BY-SA 4.0)</a></div>
         </section>
 
         <section class="intro content-width" id="discover">
@@ -98,7 +99,7 @@
 
         <section class="about-section content-width" id="about">
             <div class="about-mark" aria-hidden="true">O</div>
-            <div><p class="section-kicker">Rooted in Ekimogun</p><h2>Get to know Ondo.</h2><p>Ondo City is a place of deep Yoruba heritage, a welcoming community and a rhythm all its own. We’re building a guide to help residents and visitors find the places, people and experiences that bring the city to life.</p><a class="text-link" href="#newsletter">Stay connected <span aria-hidden="true">→</span></a></div>
+            <div><p class="section-kicker">Rooted in Ekimogun</p><h2>Get to know Ondo.</h2><p>Ondo City is a place of deep Yoruba heritage, a welcoming community and a rhythm all its own. Meet the city and learn about its present Osemawe.</p><a class="text-link" href="{{ route('about-ondo') }}">Discover Ondo City and its king <span aria-hidden="true">→</span></a></div>
         </section>
 
         <section class="quote-section content-width">
@@ -125,16 +126,18 @@
         </section>
     </main>
 
-    <footer class="site-footer">
-        <div class="footer-left">
-            <a class="brand footer-brand" href="{{ route('home') }}"><span class="brand-mark" aria-hidden="true">✳</span><span>explore<span class="brand-accent">ondo</span></span></a>
-            <p>Discover the Sunshine State.</p>
+    <footer class="public-footer">
+        <div class="public-footer-inner">
+            <div class="footer-brand-block"><a class="brand footer-brand" href="{{ route('home') }}"><span class="brand-mark" aria-hidden="true">✳</span><span>Explore Ondo</span></a><p>Discover the Sunshine State.</p></div>
+            <nav class="footer-nav" aria-label="Footer navigation"><a href="{{ route('explore.index') }}">Explore places</a><a href="{{ route('about-ondo') }}">About Ondo</a><a href="{{ route('people-businesses') }}">People & businesses</a></nav>
+            <div class="footer-contact"><span>Made with care in Ondo, Nigeria</span><a href="mailto:hello@exploreondo.com">Contact</a></div>
+            <small class="footer-copyright">© {{ date('Y') }} Explore Ondo</small>
         </div>
-        <div class="footer-right">
-            <span>Made with care in Ondo, Nigeria</span><span aria-hidden="true">·</span><span>Instagram</span><span aria-hidden="true">·</span><span>Contact</span>
-        </div>
-        <small class="footer-copyright">© {{ date('Y') }} Explore Ondo</small>
     </footer>
-    <p class="photo-credits">Image credits: <a href="https://commons.wikimedia.org/wiki/File:Traditional_local_market_in_ondo_city_of_Nigeria.jpg" target="_blank" rel="noopener noreferrer">Ondo City market — Agbadaola</a>; <a href="https://commons.wikimedia.org/wiki/File:Iya_Alaje_Market,_Ondo.jpg" target="_blank" rel="noopener noreferrer">Iya Alaje Market — Ei'eke</a>; <a href="https://commons.wikimedia.org/wiki/File:Food_Point_Restaurant.jpg" target="_blank" rel="noopener noreferrer">Food Point Restaurant — Wikimedia Commons</a>; <a href="https://commons.wikimedia.org/wiki/File:From_the_top_of_the_Pele_mountain.jpg" target="_blank" rel="noopener noreferrer">Pele mountain — Temilayo1</a>; <a href="https://commons.wikimedia.org/wiki/File:Ondo_city_gate.jpg" target="_blank" rel="noopener noreferrer">Ondo city gate — Wikimedia Commons</a>; <a href="https://commons.wikimedia.org/wiki/File:Student_Union_Government_building,_Adeyemi_College_of_Education.jpg" target="_blank" rel="noopener noreferrer">Adeyemi campus — Haylad</a>. Photos are from Wikimedia Commons; see each source page for its license and full attribution.</p>
+    {{-- <p class="photo-credits">Image credits: <a href="https://commons.wikimedia.org/wiki/File:Traditional_local_market_
+        in_ondo_city_of_Nigeria.jpg" target="_blank" rel="noopener noreferrer">Ondo City market — Agbadaola</a>; 
+        <a href="https://commons.wikimedia.org/wiki/File:Iya_Alaje_Market,_Ondo.jpg" target="_blank" rel="noopener n
+        oreferrer">Iya Alaje Market — Ei'eke</a>; <a href="https://commons.wikimedia.org/wiki/File:Food_Point_Restaurant.jpg" target="_blank" rel="noopener noreferrer">Food Point Restaurant — Wikimedia Commons</a>; <a href="https://commons.wikimedia.org/wiki/File:From_the_top_of_the_Pele_mountain.jpg" target="_blank" rel="noopener noreferrer">Pele mountain — Temilayo1</a>; <a href="https://commons.wikimedia.org/wiki/File:Ondo_city_gate.jpg" target="_blank" rel="noopener noreferrer">Ondo city gate — Wikimedia Commons</a>; <a href="https://commons.wikimedia.org/wiki/File:Student_Union_Government_building,_Adeyemi_College_of_Education.jpg" target="_blank" rel="noopener noreferrer">Adeyemi campus — Haylad</a>. 
+        Photos are from Wikimedia Commons; see each source page for its license and full attribution.</p> --}}
 </body>
 </html>

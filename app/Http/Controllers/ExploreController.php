@@ -18,6 +18,7 @@ class ExploreController extends Controller
         'food' => 'Food & restaurants',
         'health' => 'Healthcare',
         'events' => 'Events & festivals',
+        'motor-parks' => 'Motor parks & transport',
         'services' => 'Useful services',
     ];
 
@@ -56,6 +57,24 @@ class ExploreController extends Controller
         return view('explore.show', [
             'place' => $place,
             'categoryName' => self::CATEGORIES[$place->category] ?? null,
+        ]);
+    }
+
+    public function aboutOndo(): View
+    {
+        return view('explore.about-ondo');
+    }
+
+    public function peopleAndBusinesses(): View
+    {
+        $businesses = Place::query()
+            ->with('images')
+            ->whereIn('category', ['food', 'stays', 'markets', 'services', 'health'])
+            ->orderBy('name')
+            ->get();
+
+        return view('explore.people-businesses', [
+            'businesses' => $businesses,
         ]);
     }
 }

@@ -84,6 +84,69 @@
             margin-top: 10px;
         }
 
+        .notice {
+            margin: 0 0 18px;
+            padding: 12px 14px;
+            border: 1px solid #bdd7bd;
+            border-radius: 6px;
+            background: #eef7ed;
+            color: #245631;
+        }
+
+        .photo-section {
+            margin-bottom: 24px;
+            padding: 18px;
+            border: 1px solid #e4e8df;
+            border-radius: 8px;
+            background: #fbfcf9;
+        }
+
+        .photo-section h2 {
+            margin: 0 0 14px;
+            color: #1c2b24;
+            font-size: 18px;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+            gap: 12px;
+        }
+
+        .photo-item {
+            overflow: hidden;
+            border: 1px solid #e4e8df;
+            border-radius: 7px;
+            background: #fff;
+        }
+
+        .photo-item img {
+            display: block;
+            width: 100%;
+            height: 110px;
+            margin: 0;
+            object-fit: cover;
+        }
+
+        .photo-item form { padding: 8px; }
+
+        .remove-photo {
+            width: 100%;
+            padding: 8px;
+            background: #fff;
+            color: #a2382f;
+            font-size: 12px;
+            border: 1px solid #e7c7c3;
+        }
+
+        .remove-photo:hover { background: #fff2f0; }
+
+        .empty-photos {
+            margin: 0;
+            color: #68736b;
+            font-size: 14px;
+        }
+
         .error {
             color: red;
             font-size: 14px;
@@ -101,6 +164,34 @@
         Ondo is a city rich in history and culture.
         Update the details below.
     </p>
+
+    @if (session('status'))
+        <div class="notice" role="status">{{ session('status') }}</div>
+    @endif
+
+    @if ($errors->any())
+        <div class="notice" role="alert">Please review the highlighted fields and try again.</div>
+    @endif
+
+    <section class="photo-section" aria-labelledby="photos-heading">
+        <h2 id="photos-heading">Current photos ({{ $place->images->count() }})</h2>
+        @if ($place->images->isNotEmpty())
+            <div class="photo-grid">
+                @foreach ($place->images as $image)
+                    <div class="photo-item">
+                        <img src="{{ $image->path ? asset('storage/' . $image->path) : asset($image->url) }}" alt="{{ $image->label ?: $place->name }}">
+                        <form action="{{ route('places.image.delete', [$place->id, $image->id]) }}" method="post" onsubmit="return confirm('Remove this photo from the place?')">
+                            @csrf
+                            @method('DELETE')
+                            <button class="remove-photo" type="submit">Remove photo</button>
+                        </form>
+                    </div>
+                @endforeach
+            </div>
+        @else
+            <p class="empty-photos">No photos have been added for this place yet.</p>
+        @endif
+    </section>
 
     <form action="{{ route('places.update', $place->id) }}"
           method="POST"
@@ -130,6 +221,7 @@
                 <option value="food" @selected(old('category', $place->category) === 'food')>Food & restaurants</option>
                 <option value="health" @selected(old('category', $place->category) === 'health')>Healthcare</option>
                 <option value="events" @selected(old('category', $place->category) === 'events')>Events & festivals</option>
+                <option value="motor-parks" @selected(old('category', $place->category) === 'motor-parks')>Motor parks & transport</option>
                 <option value="services" @selected(old('category', $place->category) === 'services')>Useful services</option>
             </select>
         </p>
@@ -172,25 +264,16 @@
         </p>
 
         <p>
-            Place Image:
-            @foreach ($place->images as $image)
-                <br>
-                <img
-                    src="{{ asset('storage/' . $image->path) }}"
-                    alt="{{ $image->label ?? $place->name }}"
-                    class="current-image"
-                >
-            @endforeach
-
-            <input type="file" name="image"
+            Add photos:
+            <input type="file" name="images[]" multiple
                    accept="image/jpeg,image/png,image/webp">
 
-            <small>Choose a new image if you want to replace the current one.</small>
+            <small>You can choose more than one JPG, PNG or WebP image. Each image can be up to 2 MB.</small>
 
-            @error('image')
+            @if ($errors->has('image') || $errors->has('images') || $errors->has('images.*'))
                 <br>
-                <span class="error">{{ $message }}</span>
-            @enderror
+                <span class="error">{{ $errors->first('image') ?: $errors->first('images') ?: $errors->first('images.*') }}</span>
+            @endif
         </p>
 
         <p>

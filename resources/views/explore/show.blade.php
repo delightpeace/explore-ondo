@@ -9,11 +9,11 @@
     @if (file_exists(public_path('build/manifest.json')) || file_exists(public_path('hot')))
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     @else
-        <link rel="stylesheet" href="{{ asset('css-explore-ondo.css') }}">
+        <link rel="stylesheet" href="{{ asset('css-explore-ondo.css') }}?v={{ md5_file(public_path('css-explore-ondo.css')) }}">
     @endif
 </head>
 <body>
-    <header class="site-header"><a class="brand" href="{{ route('home') }}"><span class="brand-mark">✳</span><span>explore<span class="brand-accent">ondo</span></span></a><nav class="main-nav"><a href="{{ route('home') }}">Home</a><a href="{{ route('explore.index') }}">Explore places</a></nav><a class="button button-small" href="{{ route('home') }}#newsletter">Get city updates ↗</a></header>
+    <header class="topbar"><div class="topbar-inner"><a class="brand" href="{{ route('home') }}"><span class="brand-mark" aria-hidden="true">✳</span><span>Explore Ondo</span></a><nav class="topbar-links" aria-label="Main navigation"><a href="{{ route('home') }}">Home</a><a href="{{ route('explore.index') }}">Places</a><a href="{{ route('explore.index', ['category' => 'events']) }}">Festivals</a><a href="{{ route('about-ondo') }}">About Ondo</a><a href="{{ route('people-businesses') }}">People & businesses</a></nav><a class="topbar-cta" href="{{ route('home') }}#newsletter">Stay connected ↗</a></div></header>
     <main class="content-width detail-page">
         <a class="text-link back-link" href="{{ route('explore.index') }}">← Back to places</a>
         <article class="place-detail">
@@ -35,6 +35,6 @@
             </div>
         </article>
     </main>
-    <footer class="site-footer"><a class="brand footer-brand" href="{{ route('home') }}"><span class="brand-mark">✳</span><span>explore<span class="brand-accent">ondo</span></span></a><p>A city guide made with care in Ondo, Nigeria.</p><span>© {{ date('Y') }} Explore Ondo</span></footer>
+    <footer class="public-footer"><div class="public-footer-inner"><div class="footer-brand-block"><a class="brand footer-brand" href="{{ route('home') }}"><span class="brand-mark" aria-hidden="true">✳</span><span>Explore Ondo</span></a><p>Discover the Sunshine State.</p></div><nav class="footer-nav" aria-label="Footer navigation"><a href="{{ route('explore.index') }}">Explore places</a><a href="{{ route('about-ondo') }}">About Ondo</a><a href="{{ route('people-businesses') }}">People & businesses</a></nav><div class="footer-contact"><span>Made with care in Ondo, Nigeria</span><a href="{{ route('home') }}#newsletter">Stay connected</a></div><small class="footer-copyright">© {{ date('Y') }} Explore Ondo</small></div></footer>
 </body>
 </html>

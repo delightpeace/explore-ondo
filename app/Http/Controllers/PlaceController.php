@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class PlaceController extends Controller
 {
     /** @var list<string> */
-    private const CATEGORIES = ['attractions', 'schools', 'stays', 'worship', 'markets', 'food', 'health', 'events', 'services'];
+    private const CATEGORIES = ['attractions', 'schools', 'stays', 'worship', 'markets', 'food', 'health', 'events', 'motor-parks', 'services'];
 
     public function index()
     {
@@ -58,10 +58,14 @@ class PlaceController extends Controller
             'lat' => 'nullable|numeric|between:-90,90',
             'lng' => 'nullable|numeric|between:-180,180',
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
+            'images' => 'nullable|array',
+            'images.*' => 'image|mimes:jpg,jpeg,png,webp|max:2048',
         ]);
 
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('places', 'public');
+        $newImages = array_filter(array_merge([$request->file('image')], $request->file('images', [])));
+
+        foreach ($newImages as $imageFile) {
+            $path = $imageFile->store('places', 'public');
             PlaceImage::create([
                 'place_id' => $place->id,
                 'url' => 'storage/'.$path,
@@ -71,9 +75,10 @@ class PlaceController extends Controller
         }
 
         unset($validatedData['image']);
+        unset($validatedData['images']);
         $place->update($validatedData);
 
-        return to_route('places')->with('status', 'Place updated successfully.');
+        return to_route('places.edit', $place)->with('status', 'Place updated successfully.');
     }
 
     public function delete($id)
@@ -87,7 +92,7 @@ class PlaceController extends Controller
 
     public function edit($id)
     {
-        $place = Place::findOrFail($id);
+        $place = Place::with('images')->findOrFail($id);
 
         return view('detail', [
             'place' => $place,
