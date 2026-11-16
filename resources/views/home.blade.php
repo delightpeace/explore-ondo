@@ -84,9 +84,7 @@
                                     @if ($place->address)
                                         <p class="place-address"><span aria-hidden="true">⌖</span> {{ $place->address }}</p>
                                     @endif
-                                    @if ($place->lat !== null && $place->lng !== null)
-                                        <a class="place-action" href="https://www.google.com/maps?q={{ $place->lat }},{{ $place->lng }}" target="_blank" rel="noopener noreferrer">View on map <span aria-hidden="true">↗</span></a>
-                                    @endif
+                                    <a class="place-action" href="https://www.google.com/maps/search/?api=1&query={{ $place->lat !== null && $place->lng !== null ? urlencode($place->lat . ',' . $place->lng) : urlencode($place->name . ', ' . $place->address . ', Ondo, Nigeria') }}" target="_blank" rel="noopener noreferrer">View on map <span aria-hidden="true">↗</span></a>
                                 </div>
                             </article>
                         @endforeach

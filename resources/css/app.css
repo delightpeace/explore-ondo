@@ -83,6 +83,14 @@ a { color: inherit; text-decoration: none; }
 .directory-filters a { padding: 9px 13px; border: 1px solid var(--line); border-radius: 99px; background: white; color: #536157; font-size: 10px; }
 .directory-filters a.is-active { border-color: var(--green); background: var(--green); color: white; }
 .directory-results { display: flex; gap: 12px; margin-bottom: 13px; color: #788379; font-size: 10px; }
+.directory-feature { margin: 28px 0; padding: 25px; border: 1px solid var(--line); border-radius: 9px; background: #f1f2eb; }
+.directory-feature h2 { margin: 7px 0; font: 600 29px 'Playfair Display', Georgia, serif; }
+.directory-feature-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+.directory-feature-card { padding: 17px; border: 1px solid var(--line); border-radius: 7px; background: white; }
+.directory-feature-card h3 { margin: 8px 0; font: 600 20px 'Playfair Display', Georgia, serif; }
+.directory-feature-card > p:not(.place-location) { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+.source-note { margin: 17px 0 0; color: var(--muted); font-size: 10px; }
+.source-note a { color: var(--green); text-decoration: underline; }
 .directory-grid { margin-top: 0; }
 .directory-grid .place-card h2 { margin: 7px 0; font: 600 22px 'Playfair Display', Georgia, serif; }
 .directory-pagination { margin-top: 24px; }
@@ -450,4 +458,8 @@ a { color: inherit; text-decoration: none; }
     .advertise-banner { margin: 18px 0 38px; padding: 23px; }
     .advertise-banner h3 { font-size: 23px; }
     .advertise-actions { align-items: flex-start; flex-direction: column; gap: 12px; }
+}
+@media (max-width: 600px) {
+    .directory-feature { padding: 18px; }
+    .directory-feature-grid { grid-template-columns: 1fr; }
 }

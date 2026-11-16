@@ -29,9 +29,7 @@
                 <h1>{{ $place->name }}</h1>
                 <p class="detail-address">⌖ {{ $place->address }}</p>
                 <div class="detail-description">{{ $place->description }}</div>
-                @if ($place->lat !== null && $place->lng !== null)
-                    <a class="button" href="https://www.google.com/maps?q={{ $place->lat }},{{ $place->lng }}" target="_blank" rel="noopener noreferrer">Get directions ↗</a>
-                @endif
+                <a class="button" href="https://www.google.com/maps/search/?api=1&query={{ $place->lat !== null && $place->lng !== null ? urlencode($place->lat . ',' . $place->lng) : urlencode($place->name . ', ' . $place->address . ', Ondo, Nigeria') }}" target="_blank" rel="noopener noreferrer">Get directions ↗</a>
             </div>
         </article>
     </main>

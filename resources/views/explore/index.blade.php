@@ -24,6 +24,30 @@
             <button type="submit">Search</button>
         </form>
         <nav class="directory-filters" aria-label="Filter places by category"><a class="{{ $selectedCategory === null ? 'is-active' : '' }}" href="{{ route('explore.index') }}">All places</a>@foreach ($categories as $slug => $label)<a class="{{ $selectedCategory === $slug ? 'is-active' : '' }}" href="{{ route('explore.index', ['category' => $slug]) }}">{{ $label }}</a>@endforeach</nav>
+        @if ($selectedCategory === 'motor-parks')
+            <section class="directory-feature" aria-labelledby="transport-title">
+                <p class="section-kicker">Getting around Ondo</p><h2 id="transport-title">Motor parks & transport points</h2>
+                <p class="directory-intro">Local reporting names these parks and transport areas in Ondo. Routes and operating times can change; check with drivers before travelling.</p>
+                <div class="directory-feature-grid">
+                    @foreach ([['Ife Garage Motor Park', 'Ife Garage, Ondo City'], ['Akure Motor Park', 'Ondo–Akure Road, Ondo City'], ['Oka Motor Park', 'Oka, Ondo City'], ['Bolorunduro Motor Park', 'Bolorunduro, Ondo East']] as [$park, $area])
+                        <article class="directory-feature-card"><p class="place-location">Transport · {{ $area }}</p><h3>{{ $park }}</h3><a class="place-action" href="https://www.google.com/maps/search/?api=1&query={{ urlencode($park . ', ' . $area . ', Ondo, Nigeria') }}" target="_blank" rel="noopener noreferrer">Find on map <span>↗</span></a></article>
+                    @endforeach
+                </div>
+                <p class="source-note">Park names reported by <a href="https://tribuneonlineng.com/ondo-lawmaker-makinde-lays-foundation-of-four-ultra-mordern-motor-parks/" target="_blank" rel="noopener noreferrer">Nigerian Tribune</a>.</p>
+            </section>
+        @elseif ($selectedCategory === 'events')
+            <section class="directory-feature" aria-labelledby="festival-title">
+                <p class="section-kicker">Living traditions</p><h2 id="festival-title">Festivals of Ondo Kingdom</h2>
+                <p class="directory-intro">Festival dates are set by local organisers and traditional authorities. Confirm this year’s programme before making travel plans.</p>
+                <div class="directory-feature-grid">
+                    <article class="directory-feature-card"><p class="place-location">Annual · December</p><h3>Ekimogun Day</h3><p>A homecoming celebration of Ondo heritage, with cultural performances, community events and royal appearances.</p></article>
+                    <article class="directory-feature-card"><p class="place-location">Traditional festival</p><h3>Ogun Festival</h3><p>A major Ondo Kingdom festival honouring Ogun, with ceremonies and cultural observances.</p></article>
+                    <article class="directory-feature-card"><p class="place-location">Traditional festival · July season</p><h3>Odun Oba (Odunbami)</h3><p>A new-year and planting-season celebration in which the community pays homage to the Osemawe.</p></article>
+                    <article class="directory-feature-card"><p class="place-location">Ondo cultural calendar</p><h3>Agheregbe Festival</h3><p>A traditional celebration associated with the Ondo Kingdom’s history and warrior heritage.</p></article>
+                </div>
+                <p class="source-note">Sources: <a href="https://oedcondo.com/events/" target="_blank" rel="noopener noreferrer">Ondo Ekimogun Dynamic Club</a>, <a href="https://oecsonline.com/entertainment/2025/07/odun-oba-2025/" target="_blank" rel="noopener noreferrer">OECS Online</a>, and <a href="https://www.thehopenewspaper.com/ondo-celebrates-20-years-of-osemawe-coronation/" target="_blank" rel="noopener noreferrer">The Hope Newspaper</a>.</p>
+            </section>
+        @endif
         <div class="directory-results"><span>{{ $places->total() }} {{ \Illuminate\Support\Str::plural('place', $places->total()) }}</span>@if ($search)<span>matching “{{ $search }}”</span>@endif</div>
         @if ($places->isNotEmpty())
             <div class="place-grid directory-grid">
@@ -40,7 +64,7 @@
                 @endforeach
             </div>
             <div class="directory-pagination">{{ $places->links() }}</div>
-        @else
+        @elseif (!in_array($selectedCategory, ['motor-parks', 'events'], true))
             <div class="empty-places"><span>✳</span><h3>No places found yet</h3><p>Try another category or search term, or check back as the city guide grows.</p><a class="text-link" href="{{ route('explore.index') }}">View all places →</a></div>
         @endif
     </main>
