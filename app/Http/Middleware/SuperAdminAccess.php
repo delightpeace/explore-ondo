@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SuperAdminAccess
 {
-    /**
+    /** o 
      * Handle an incoming request.
      *
      * @param  Closure(Request): (Response)  $next
