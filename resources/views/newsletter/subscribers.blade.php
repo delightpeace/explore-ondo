@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Newsletter signups | Explore Ondo</title>
+    <link rel="stylesheet" href="{{ asset('css-admin-sidebar.css') }}?v={{ md5_file(public_path('css-admin-sidebar.css')) }}">
     <style>
         body { margin: 0; padding: 32px; background: #f4f7f5; color: #26352d; font: 15px Arial, sans-serif; }
         main { max-width: 900px; margin: 0 auto; padding: 28px; border-radius: 12px; background: white; box-shadow: 0 4px 15px #0000000c; }
@@ -17,8 +18,10 @@
         @media (max-width: 550px) { body { padding: 14px; } main { padding: 18px; } }
     </style>
 </head>
-<body>
-    <main>
+<body class="admin-body">
+    <div class="admin-shell">
+        @include('partials.admin-sidebar')
+        <main class="admin-page-content">
         <a class="back" href="{{ route('places') }}">← Back to place manager</a>
         <h1>Newsletter signups</h1>
         <p>{{ $subscribers->total() }} email {{ \Illuminate\Support\Str::plural('address', $subscribers->total()) }} signed up for Explore Ondo updates.</p>
@@ -35,6 +38,7 @@
         @else
             <p class="empty">No one has signed up yet.</p>
         @endif
-    </main>
+        </main>
+    </div>
 </body>
 </html>

@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('css-admin-sidebar.css') }}?v={{ md5_file(public_path('css-admin-sidebar.css')) }}">
     <style>
         :root { --green: #153f31; --green-dark: #103126; --lime: #d7e889; --paper: #f6f7f2; --ink: #1c2b24; --muted: #68736b; --line: #e4e8df; --white: #fff; }
         * { box-sizing: border-box; }
@@ -79,7 +80,7 @@
         @media (max-width: 390px) { .topbar-links { gap: 8px; } .topbar-links a { font-size: 9px; } .coordinates { grid-template-columns: 1fr; gap: 0; } }
     </style>
 </head>
-<body>
+<body class="admin-body">
     <header class="topbar">
         <div class="topbar-inner">
             <a class="brand" href="{{ route('home') }}"><span class="brand-mark" aria-hidden="true">✳</span><span>Explore Ondo <span style="font-weight:400;color:#c9d7ce">/ Admin</span></span></a>
@@ -91,7 +92,9 @@
         </div>
     </header>
 
-    <main>
+    <div class="admin-shell">
+        @include('partials.admin-sidebar')
+        <main class="admin-page-content">
         <section class="page-heading">
             <div>
                 <p class="eyebrow">Your city guide workspace</p>
@@ -214,6 +217,7 @@
             </section>
         </div>
         <footer class="admin-footer">Explore Ondo · Place manager</footer>
-    </main>
+        </main>
+    </div>
 </body>
 </html>

@@ -1,0 +1,18 @@
+.admin-body { min-height: 100vh; margin: 0; padding: 0 !important; background: #f6f7f2; color: #1c2b24; font-family: 'DM Sans', Arial, sans-serif; }
+.admin-shell { width: min(1450px, calc(100% - 48px)); margin: 30px auto; display: grid; grid-template-columns: 245px minmax(0, 1fr); gap: 24px; align-items: start; }
+.admin-sidebar { min-height: calc(100vh - 130px); padding: 20px 14px; display: flex; flex-direction: column; border-radius: 12px; background: #153f31; color: #fff; position: sticky; top: 20px; }
+.admin-sidebar-brand { display: flex; align-items: center; gap: 11px; padding: 2px 5px 25px; color: #fff; text-decoration: none; }
+.admin-sidebar-mark { width: 36px; height: 36px; display: grid; place-items: center; flex: 0 0 36px; border-radius: 50%; background: #d7e889; color: #153f31; font-size: 18px; }
+.admin-sidebar-brand-copy { display: grid; gap: 3px; }
+.admin-sidebar-brand-copy strong { font-size: 14px; }
+.admin-sidebar-brand-copy small { color: #c5d5ca; font-size: 11px; }
+.admin-sidebar-label { margin: 0 9px 8px; color: #b9cec0; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
+.admin-sidebar-nav { display: grid; gap: 6px; }
+.admin-sidebar-nav a, .admin-sidebar-bottom a { min-height: 42px; padding: 11px 12px; display: flex; align-items: center; gap: 10px; border-radius: 7px; color: #e5eee8; font-size: 12px; text-decoration: none; transition: background .15s, color .15s; }
+.admin-sidebar-nav a:hover, .admin-sidebar-nav a.is-active, .admin-sidebar-bottom a:hover { background: #ffffff1c; color: #fff; }
+.admin-sidebar-nav a.is-active { box-shadow: inset 3px 0 #d7e889; }
+.admin-sidebar-bottom { display: grid; gap: 4px; margin-top: auto; padding-top: 20px; border-top: 1px solid #ffffff30; }
+.admin-page-content { width: 100% !important; min-width: 0; max-width: none !important; margin: 0 !important; padding: 0 0 48px !important; }
+.admin-page-content .container { width: 100%; max-width: none; margin: 0; }
+@media (max-width: 900px) { .admin-shell { grid-template-columns: 210px minmax(0, 1fr); gap: 16px; } }
+@media (max-width: 700px) { .admin-shell { width: calc(100% - 28px); margin: 18px auto; grid-template-columns: 1fr; } .admin-sidebar { min-height: auto; padding: 15px 12px; position: static; } .admin-sidebar-brand { padding-bottom: 16px; } .admin-sidebar-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); } .admin-sidebar-bottom { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 12px; padding-top: 10px; } .admin-page-content .container { padding: 22px 18px; } }

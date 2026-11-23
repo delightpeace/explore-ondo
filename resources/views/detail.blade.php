@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Place - Explore Ondo</title>
+    <link rel="stylesheet" href="{{ asset('css-admin-sidebar.css') }}?v={{ md5_file(public_path('css-admin-sidebar.css')) }}">
 
     <style>
         body {
@@ -154,8 +155,11 @@
     </style>
 </head>
 
-<body>
+<body class="admin-body">
 
+<div class="admin-shell">
+    @include('partials.admin-sidebar')
+    <main class="admin-page-content">
 <div class="container">
 
     <h1>Edit Place</h1>
@@ -284,6 +288,8 @@
 
     <a href="{{ route('places') }}" class="back">Back to Places</a>
 
+</div>
+    </main>
 </div>
 
 </body>
