@@ -4,19 +4,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#153f31">
+    <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
     <meta name="description" content="Discover places, people, culture and everyday life in Ondo City.">
     <title>Explore Ondo — Find your place in the city</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
-<<<<<<< HEAD
-   @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-<link rel="stylesheet" href="{{ asset('css-explore-ondo.css') 
-}}?v={{ md5_file(public_path('css-explore-ondo.css')) }}">
-=======
     <link rel="stylesheet" href="{{ asset('css-explore-ondo.css') }}?v={{ md5_file(public_path('css-explore-ondo.css')) }}">
->>>>>>> 92fb2be61a248cee4a84d526358ae3422a34ece4
 </head>
 <body>
     <header class="topbar">
