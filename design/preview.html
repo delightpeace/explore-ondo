@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Explore Ondo · A guide to Ondo town</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,560;1,9..144,500&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --paper: #f3efe6;
+            --sheet: #fffdf8;
+            --ink: #1c1915;
+            --muted: #5c564e;
+            --line: #e2dbcf;
+            --green: #1b4634;
+            --green-deep: #10281e;
+            --clay: #6e3d24;
+            --cream: #f3efe6;
+            --cream-soft: #ddd4c6;
+            --wrap: 1040px;
+        }
+
+        * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0;
+            background: var(--paper);
+            color: var(--ink);
+            font-family: Outfit, "Segoe UI", sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            text-rendering: optimizeLegibility;
+        }
+
+        ::selection { background: #d7e4db; }
+
+        :focus-visible {
+            outline: 2px solid var(--green);
+            outline-offset: 3px;
+        }
+
+        a { color: inherit; }
+
+        .skip {
+            position: absolute;
+            left: 16px;
+            top: -48px;
+            background: var(--sheet);
+            padding: 8px 12px;
+            z-index: 20;
+        }
+
+        .skip:focus { top: 12px; }
+
+        .wrap {
+            width: min(var(--wrap), calc(100% - 48px));
+            margin-inline: auto;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 5;
+            background: rgb(243 239 230 / 92%);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 72px;
+            gap: 24px;
+        }
+
+        .logo {
+            font-family: Fraunces, Georgia, serif;
+            font-size: 1.35rem;
+            font-weight: 560;
+            letter-spacing: -0.03em;
+            text-decoration: none;
+        }
+
+        .logo em { font-style: italic; font-weight: 500; }
+
+        nav {
+            display: flex;
+            gap: 28px;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--muted);
+            padding: 8px 0;
+        }
+
+        nav a:hover,
+        nav a[aria-current="page"] { color: var(--ink); }
+
+        .hero { padding: 76px 0 28px; }
+
+        .eyebrow {
+            margin: 0;
+            color: var(--clay);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 14px 0 0;
+            max-width: 11ch;
+            font-family: Fraunces, Georgia, serif;
+            font-size: clamp(3rem, 7vw, 4.75rem);
+            font-weight: 560;
+            line-height: 0.98;
+            letter-spacing: -0.04em;
+        }
+
+        .lede {
+            max-width: 36rem;
+            margin: 22px 0 0;
+            color: var(--muted);
+            font-size: 1.2rem;
+            line-height: 1.45;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 22px;
+            margin-top: 32px;
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            min-height: 46px;
+            padding: 0 18px;
+            background: var(--green);
+            color: var(--cream);
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .button:hover { background: #16392b; }
+
+        .text-link {
+            color: var(--green);
+            font-weight: 500;
+            text-underline-offset: 4px;
+        }
+
+        .facts {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            margin-top: 72px;
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .fact { padding: 22px 22px 22px 0; }
+
+        .fact + .fact {
+            padding-left: 22px;
+            border-left: 1px solid var(--line);
+        }
+
+        .fact h2 {
+            margin: 0;
+            color: var(--green);
+            font-family: Outfit, "Segoe UI", sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .fact p {
+            margin: 8px 0 0;
+            font-size: 0.98rem;
+            line-height: 1.45;
+        }
+
+        .places { padding: 88px 0 72px; }
+
+        .section-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 24px;
+            margin-bottom: 18px;
+        }
+
+        .section-head h2,
+        .story h2,
+        .place-title {
+            margin: 0;
+            font-family: Fraunces, Georgia, serif;
+            font-weight: 560;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+        }
+
+        .section-head h2 { font-size: clamp(2rem, 4vw, 2.7rem); }
+
+        .count {
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .place {
+            display: grid;
+            grid-template-columns: 2.2rem 6.6rem minmax(13rem, 0.95fr) minmax(14rem, 1.15fr);
+            grid-template-areas: "num cat name sum";
+            gap: 8px 20px;
+            align-items: start;
+            margin: 0 -16px;
+            padding: 26px 16px;
+            border-top: 1px solid var(--line);
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .place:last-of-type { border-bottom: 1px solid var(--line); }
+
+        .place:hover { background: var(--sheet); }
+
+        .place:hover .name { color: var(--green); }
+
+        .num {
+            grid-area: num;
+            font-family: Fraunces, Georgia, serif;
+            color: var(--clay);
+            font-size: 0.95rem;
+        }
+
+        .cat {
+            grid-area: cat;
+            padding-top: 3px;
+            color: var(--clay);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .name {
+            grid-area: name;
+            font-family: Fraunces, Georgia, serif;
+            font-size: 1.45rem;
+            font-weight: 560;
+            letter-spacing: -0.03em;
+            line-height: 1.15;
+        }
+
+        .sum {
+            grid-area: sum;
+            margin: 0;
+            color: var(--muted);
+            font-size: 0.98rem;
+            line-height: 1.45;
+        }
+
+        .story {
+            background: var(--green-deep);
+            color: var(--cream);
+            padding: 80px 0;
+        }
+
+        .story-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 48px;
+        }
+
+        .story .eyebrow { color: var(--cream-soft); }
+
+        .story h2 {
+            margin-top: 12px;
+            font-size: clamp(2rem, 4vw, 2.7rem);
+        }
+
+        .quote {
+            margin: 0 0 22px;
+            font-family: Fraunces, Georgia, serif;
+            font-size: clamp(1.55rem, 3vw, 2rem);
+            font-style: italic;
+            font-weight: 500;
+            line-height: 1.25;
+            letter-spacing: -0.03em;
+        }
+
+        .story-body p {
+            margin: 0 0 16px;
+            max-width: 42rem;
+            color: var(--cream-soft);
+        }
+
+        .story-body p:last-child { margin-bottom: 0; }
+
+        footer {
+            padding: 28px 0 40px;
+        }
+
+        .foot {
+            display: flex;
+            justify-content: space-between;
+            gap: 16px;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .foot a { color: var(--green); }
+
+        .place-view { padding-bottom: 72px; }
+
+        .back {
+            display: inline-flex;
+            margin-top: 28px;
+            color: var(--green);
+            font-weight: 500;
+            text-underline-offset: 4px;
+        }
+
+        .place-kicker {
+            margin: 36px 0 0;
+            color: var(--clay);
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .place-title {
+            max-width: 16ch;
+            margin-top: 12px;
+            font-size: clamp(2.6rem, 6vw, 4.2rem);
+        }
+
+        .place-summary {
+            max-width: 38rem;
+            margin: 18px 0 0;
+            color: var(--muted);
+            font-size: 1.15rem;
+        }
+
+        .place-copy {
+            display: grid;
+            grid-template-columns: 1.3fr 0.7fr;
+            gap: 48px;
+            margin-top: 36px;
+        }
+
+        .place-copy p {
+            margin: 0;
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .practical {
+            margin: 0;
+            padding-left: 16px;
+            border-left: 3px solid var(--green);
+        }
+
+        .practical span {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--green);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .address {
+            margin-top: 28px;
+            color: var(--muted);
+        }
+
+        .address a {
+            color: var(--green);
+            font-weight: 500;
+        }
+
+        .more {
+            margin-top: 64px;
+            padding-top: 8px;
+        }
+
+        .more h2 {
+            margin: 0 0 8px;
+            font-family: Fraunces, Georgia, serif;
+            font-size: 1.8rem;
+            font-weight: 560;
+            letter-spacing: -0.03em;
+        }
+
+        #more-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            border-top: 1px solid var(--line);
+        }
+
+        #more-list a {
+            display: grid;
+            grid-template-columns: 7rem 1fr;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--line);
+            text-decoration: none;
+        }
+
+        #more-list a:hover .more-name { color: var(--green); }
+
+        .more-cat {
+            color: var(--clay);
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .more-name {
+            font-family: Fraunces, Georgia, serif;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 860px) {
+            .facts { grid-template-columns: 1fr 1fr; }
+            .fact:nth-child(3) { border-top: 1px solid var(--line); }
+            .fact:nth-child(odd) { padding-left: 0; border-left: 0; }
+            .fact:nth-child(even) { border-left: 1px solid var(--line); }
+            .place {
+                grid-template-columns: 2.2rem 1fr;
+                grid-template-areas:
+                    "num cat"
+                    "name name"
+                    "sum sum";
+            }
+            .story-grid,
+            .place-copy { grid-template-columns: 1fr; gap: 28px; }
+        }
+
+        @media (max-width: 640px) {
+            .wrap { width: min(var(--wrap), calc(100% - 32px)); }
+            .hero { padding-top: 40px; }
+            .facts {
+                display: block;
+                border: 0;
+            }
+            .fact,
+            .fact + .fact {
+                padding: 16px 0;
+                border-left: 0;
+                border-top: 1px solid var(--line);
+            }
+            .places { padding-top: 56px; }
+            .section-head { display: block; }
+            .foot { display: block; }
+            .foot p + p { margin-top: 8px; }
+            #more-list a { grid-template-columns: 1fr; gap: 4px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+    <a class="skip" href="#content">Skip to content</a>
+    <header>
+        <div class="wrap bar">
+            <a class="logo" href="#top" data-home>Explore <em>Ondo</em></a>
+            <nav aria-label="Primary">
+                <a href="#places" data-home>Places</a>
+                <a href="#story" data-home>The town</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="content">
+        <div id="home">
+            <section class="hero wrap" id="top">
+                <p class="eyebrow">Ode Ondo · Ondo State</p>
+                <h1>The royal town, plainly told.</h1>
+                <p class="lede">A short guide to the palace, the markets, and a few other places worth knowing in Ondo town.</p>
+                <div class="actions">
+                    <a class="button" href="#places" data-home>See the places</a>
+                    <a class="text-link" href="#story" data-home>Read the history</a>
+                </div>
+
+                <div class="facts">
+                    <article class="fact">
+                        <h2>The kingdom</h2>
+                        <p>Pupupu was the first ruler. Her successors still hold the title Osemawe.</p>
+                    </article>
+                    <article class="fact">
+                        <h2>The dialect</h2>
+                        <p>People here speak their own Yoruba, distinct from the towns around them.</p>
+                    </article>
+                    <article class="fact">
+                        <h2>The markets</h2>
+                        <p>Cocoa, yam, and kola nut made Ondo a trading town. The markets still run the day.</p>
+                    </article>
+                    <article class="fact">
+                        <h2>The schools</h2>
+                        <p>Adeyemi Federal University of Education draws students from across Nigeria.</p>
+                    </article>
+                </div>
+            </section>
+
+            <section class="places wrap" id="places" aria-labelledby="places-title">
+                <div class="section-head">
+                    <h2 id="places-title">Places</h2>
+                    <p class="count">Six to start with. Open any row.</p>
+                </div>
+
+                <a class="place" href="#place-palace" data-place="palace">
+                    <span class="num">01</span>
+                    <span class="cat">Palace</span>
+                    <span class="name">Osemawe Palace</span>
+                    <p class="sum">The working seat of the Osemawe, in the old part of town, close to the central markets.</p>
+                </a>
+                <a class="place" href="#place-ughele" data-place="ughele">
+                    <span class="num">02</span>
+                    <span class="cat">Market</span>
+                    <span class="name">Ondo Central Market</span>
+                    <p class="sum">Ughele is the largest market: foodstuffs, cloth, kitchen goods, and carriers who will wheel your bags.</p>
+                </a>
+                <a class="place" href="#place-iyalaje" data-place="iyalaje">
+                    <span class="num">03</span>
+                    <span class="cat">Market</span>
+                    <span class="name">Iyalaje Market</span>
+                    <p class="sum">A second large market on the Akure road, with several entrances and cars moving between the stalls.</p>
+                </a>
+                <a class="place" href="#place-mukeke" data-place="mukeke">
+                    <span class="num">04</span>
+                    <span class="cat">Shopping</span>
+                    <span class="name">Mukeke Mall</span>
+                    <p class="sum">Groceries, a bakery, a pharmacy, and home goods, in a quieter building opposite NCI.</p>
+                </a>
+                <a class="place" href="#place-nibanola" data-place="nibanola">
+                    <span class="num">05</span>
+                    <span class="cat">Leisure</span>
+                    <span class="name">Nibanola Resort</span>
+                    <p class="sum">A quiet resort on the edge of town, with a pool, boats, and horse rides. Activities are paid separately.</p>
+                </a>
+                <a class="place" href="#place-adeyemi" data-place="adeyemi">
+                    <span class="num">06</span>
+                    <span class="cat">Campus</span>
+                    <span class="name">Adeyemi Federal University of Education</span>
+                    <p class="sum">The federal college that made Ondo a student town, as well as a market town.</p>
+                </a>
+            </section>
+
+            <section class="story" id="story">
+                <div class="wrap story-grid">
+                    <div>
+                        <p class="eyebrow">The town</p>
+                        <h2>A brief history of Ondo</h2>
+                    </div>
+                    <div class="story-body">
+                        <p class="quote">The first ruler is remembered as a woman named Pupupu.</p>
+                        <p>Ondo, also called Ode Ondo, is an old Yoruba town in south-western Nigeria. It is the headquarters of Ondo West, and one of the best known towns in the state.</p>
+                        <p>Oral tradition traces the kingdom to Ile-Ife. The Osemawe remains the traditional ruler and the keeper of custom. People still orient themselves by the palace.</p>
+                        <p>The town grew on farming and trade. Schools came later, and with them a student population. Festivals and the palace keep the older life in view.</p>
+                    </div>
+                </div>
+            </section>
+
+            <footer>
+                <div class="wrap foot">
+                    <p>Explore Ondo · Delight Adebisi</p>
+                    <p>A guide to Ondo town, Ondo State.</p>
+                </div>
+            </footer>
+        </div>
+
+        <div id="place" class="place-view wrap" hidden>
+            <a class="back" href="#places" data-home>All places</a>
+            <p class="place-kicker" id="place-cat"></p>
+            <h1 class="place-title" id="place-title" tabindex="-1"></h1>
+            <p class="place-summary" id="place-summary"></p>
+            <div class="place-copy">
+                <p id="place-body"></p>
+                <div>
+                    <p class="practical"><span>Before you go</span><span id="place-practical"></span></p>
+                    <p class="address" id="place-address"></p>
+                    <p class="address"><a id="place-map" href="">Show on a map</a></p>
+                </div>
+            </div>
+            <section class="more" aria-labelledby="more-title">
+                <h2 id="more-title">Other places</h2>
+                <ul id="more-list"></ul>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        const places = {
+            palace: {
+                category: "Palace",
+                name: "Osemawe Palace",
+                summary: "The working seat of the Osemawe, in the old part of town, close to the central markets.",
+                body: "The palace is the home of the traditional ruler of the Ondo Kingdom. The title Osemawe goes back to Pupupu, remembered as the first ruler, and it is still in use. The building sits in the old centre, near the markets that grew up around it.",
+                practical: "See it from the road unless a visit has been arranged. Opening hours are not published, so ask locally or write ahead before you expect to go in.",
+                address: "Osemawe Palace, central Ondo"
+            },
+            ughele: {
+                category: "Market",
+                name: "Ondo Central Market",
+                summary: "The largest market in town. Food, cloth, kitchen goods, and room to bargain.",
+                body: "Ughele mixes lock-up shops, open stalls, and hawkers. You can buy foodstuffs, soup ingredients, drinks, clothing, and household goods. Prices are generally fair if you buy without a rush. Keep your bag where you can see it, as you would in any large market.",
+                practical: "Morning is the fullest time. Wheelbarrow carriers will move your goods for a fee.",
+                address: "Ondo–Akure Road, Ondo"
+            },
+            iyalaje: {
+                category: "Market",
+                name: "Iyalaje Market",
+                summary: "Another large market on the Akure road, with as many as four entrances.",
+                body: "Iyalaje sells most household and food items. It is rougher and less ordered than the central market, and it spreads across more than one way in.",
+                practical: "Cars drive inside this market. Walk, and watch the gaps between stalls.",
+                address: "Ondo–Akure Road, Ondo"
+            },
+            mukeke: {
+                category: "Shopping",
+                name: "Mukeke Mall",
+                summary: "A cleaner stop for groceries, a bakery, a pharmacy, and things for the house.",
+                body: "Mukeke is the organised alternative to the open markets. The shelves run from frozen food and bread to electronics, fabrics, and home furnishings. Staff are straightforward, and prices are ordinary rather than boutique.",
+                practical: "Come here when you want one stop and a roof, rather than a wander through the open market.",
+                address: "Opposite NCI, Lisaluwa, Ondo"
+            },
+            nibanola: {
+                category: "Leisure",
+                name: "Nibanola Resort",
+                summary: "Swimming, boats, and horse rides on the edge of town.",
+                body: "Nibanola is a large leisure resort at Igbado, on the road toward Ore. Visitors come for the pool, boat rides, horse riding, motorbike rides, and a restaurant and lounge beside the water. It is set up for families, and it is quiet compared with town.",
+                practical: "The gate fee does not cover the rides or the food. Pay to enter, then choose what you want to do. Allow half a day.",
+                address: "Ore–Ondo Road, Igbado, Ondo State"
+            },
+            adeyemi: {
+                category: "Campus",
+                name: "Adeyemi Federal University of Education",
+                summary: "The federal college that draws students to Ondo from across the country.",
+                body: "Adeyemi trains teachers and other professionals. The campus is part of why the town feels younger than its history. It sits in the modern life of Ondo, next to the markets and the older kingdom.",
+                practical: "This is a working campus. Visit as a guest. There is no ticket desk and no set tourist route.",
+                address: "Ondo town, Ondo West, Ondo State"
+            }
+        };
+
+        const home = document.querySelector("#home");
+        const placeView = document.querySelector("#place");
+        const title = document.querySelector("#place-title");
+
+        function showPlace(id) {
+            const place = places[id];
+            if (!place) return;
+            document.querySelector("#place-cat").textContent = place.category;
+            title.textContent = place.name;
+            document.querySelector("#place-summary").textContent = place.summary;
+            document.querySelector("#place-body").textContent = place.body;
+            document.querySelector("#place-practical").textContent = place.practical;
+            document.querySelector("#place-address").textContent = place.address;
+            document.querySelector("#place-map").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(place.address + ", Nigeria");
+
+            const list = document.querySelector("#more-list");
+            list.replaceChildren();
+            Object.entries(places).forEach(([key, item]) => {
+                if (key === id) return;
+                const li = document.createElement("li");
+                const link = document.createElement("a");
+                link.href = "#place-" + key;
+                link.dataset.place = key;
+                const cat = document.createElement("span");
+                cat.className = "more-cat";
+                cat.textContent = item.category;
+                const name = document.createElement("span");
+                name.className = "more-name";
+                name.textContent = item.name;
+                link.append(cat, name);
+                li.append(link);
+                list.append(li);
+            });
+
+            home.hidden = true;
+            placeView.hidden = false;
+            document.title = place.name + " · Explore Ondo";
+            window.scrollTo(0, 0);
+            title.focus();
+        }
+
+        function showHome(hash) {
+            placeView.hidden = true;
+            home.hidden = false;
+            document.title = "Explore Ondo · A guide to Ondo town";
+            if (hash && hash !== "#top") {
+                const target = document.querySelector(hash);
+                if (target) target.scrollIntoView();
+                else window.scrollTo(0, 0);
+            } else {
+                window.scrollTo(0, 0);
+            }
+        }
+
+        document.addEventListener("click", (event) => {
+            const opener = event.target.closest("[data-place]");
+            if (opener) {
+                event.preventDefault();
+                const id = opener.dataset.place;
+                history.pushState({ place: id }, "", "#place-" + id);
+                showPlace(id);
+                return;
+            }
+            const homeLink = event.target.closest("[data-home]");
+            if (homeLink) {
+                event.preventDefault();
+                const hash = homeLink.getAttribute("href");
+                history.pushState({}, "", hash || "#top");
+                showHome(hash);
+            }
+        });
+
+        window.addEventListener("popstate", () => {
+            const id = location.hash.startsWith("#place-") ? location.hash.slice(7) : "";
+            if (places[id]) showPlace(id);
+            else showHome(location.hash);
+        });
+
+        if (location.hash.startsWith("#place-") && places[location.hash.slice(7)]) {
+            showPlace(location.hash.slice(7));
+        }
+    </script>
+</body>
+</html>
