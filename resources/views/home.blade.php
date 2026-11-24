@@ -49,10 +49,11 @@
 
         <section class="category-grid content-width" aria-label="Explore by category">
             @forelse ($categories as $category)
-                <a class="category-card {{ $category['style'] }}" href="{{ route('explore.index', ['category' => $category['slug']]) }}">
-                    <span class="category-symbol" aria-hidden="true">{{ $category['icon'] }}</span>
-                    <strong>{{ $category['name'] }}</strong>
-                    <span>{{ $category['count'] }} {{ \Illuminate\Support\Str::plural('place', $category['count']) }} to explore <b aria-hidden="true">↗</b></span>
+                <a class="category-card {{ $category->card_class }}" href="{{ route('explore.index', ['category' => $category->slug]) }}" @if ($category->image_url) style="background-image: linear-gradient(180deg, #102e2466, #102e24e8), url('{{ $category->image_url }}'); background-position: center; background-size: cover; color: white;" @endif>
+                    <span class="category-symbol" aria-hidden="true">{{ $category->symbol }}</span>
+                    <strong>{{ $category->name }}</strong>
+                    <span>{{ $category->description ?: 'Explore places in this category.' }} <b aria-hidden="true">↗</b></span>
+                    <small class="category-place-count">{{ $category->places_count }} {{ \Illuminate\Support\Str::plural('place', $category->places_count) }}</small>
                 </a>
             @empty
                 <p class="category-empty">Place categories will appear here as they are added.</p>

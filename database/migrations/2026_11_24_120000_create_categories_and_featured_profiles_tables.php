@@ -66,6 +66,7 @@ return new class extends Migration
             ['business', 'Hunnovate', 'Technology · Ondo City', 'A technology company in Ondo City working across programming and software development.', null, 'https://hunnovate.com', 1],
             ['business', 'Charis Brand', 'Local brand · Ondo City', 'A local brand featured in the Explore Ondo business guide.', null, null, 2],
             ['business', 'GE Interiors', 'Interiors · Ondo City', 'An interiors business featured in the Explore Ondo business guide.', null, null, 3],
+            ['business', 'Nibanola Motherland Resort & Golf', 'A local stay · Igbado', 'A resort and leisure destination on Ondo-Ore Road in Ondo City.', null, 'https://www.nibanola.com/', 4],
         ];
 
         foreach ($profiles as [$type, $name, $subtitle, $description, $imageUrl, $websiteUrl, $sortOrder]) {

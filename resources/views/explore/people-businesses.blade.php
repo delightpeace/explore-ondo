@@ -20,34 +20,47 @@
 
         <section class="people-section" id="notable-people">
             <div class="section-heading"><div><p class="section-kicker">Notable people</p>
-                <h2>Lives and work with Ondo roots</h2></div><span class="people-count">Featured stories</span></div>
+                <h2>Lives and work with Ondo roots</h2></div><span class="people-count">{{ $people->count() }} featured {{ \Illuminate\Support\Str::plural('story', $people->count()) }}</span></div>
             <div class="people-grid">
-                <article class="person-card"><div class="person-portrait person-portrait-gf" aria-hidden="true"><span>GF</span></div>
-                    <div class="person-copy"><p class="person-meta">Lawyer · publisher · human rights advocate</p><h3>Gani Fawehinmi</h3>
-                    <p>Born in Ondo in 1938, Gani Fawehinmi became one of Nigeria’s best-known lawyers and advocates for human rights and public accountability.</p>
-                    <a class="text-link" href="https://www.osgf.gov.ng/storage/app/media/pdf/Profiles%20of%20the%20National%20Awardees.pdf" target="_blank" rel="noopener noreferrer">Read his profile <span aria-hidden="true">↗</span></a></div></article>
-                <article class="person-card"><div class="person-portrait person-portrait-sa" aria-hidden="true"><span>SA</span></div><div class="person-copy"><p class="person-meta">Jùjú musician · Ondo family roots</p><h3>King Sunny Adé</h3><p>A renowned Nigerian Jùjú musician whose father was from Ondo City. King Sunny Adé was born in Osogbo.</p><a class="text-link" href="https://dawncommission.org/otunba-king-sunny-ade-mfr-at-80-the-global-king-of-juju-music/" target="_blank" rel="noopener noreferrer">Read about his Ondo connection <span aria-hidden="true">↗</span></a></div></article>
-                <article class="person-card"><div class="person-portrait person-portrait-biodun"><img src="https://biodunbamigboye.com/images/image1.png" alt="Biodun Bamigboye" loading="lazy"></div><div class="person-copy"><p class="person-meta">Software engineer · education technology</p><h3>Biodun Bamigboye</h3><p>His profile describes more than a decade working in educational technology, building school management systems and AI-supported learning tools. He is listed as founder and CTO of Hunnovate.</p><a class="text-link" href="https://biodunbamigboye.com/" target="_blank" rel="noopener noreferrer">Visit his official profile <span aria-hidden="true">↗</span></a></div></article>
+                @forelse ($people as $person)
+                    <article class="person-card">
+                        <div class="person-portrait">
+                            @if ($person->image_url)
+                                <img src="{{ $person->image_url }}" alt="{{ $person->name }}" loading="lazy">
+                            @else
+                                <span aria-hidden="true">{{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr($person->name, 0, 1)) }}</span>
+                            @endif
+                        </div>
+                        <div class="person-copy"><p class="person-meta">{{ $person->subtitle }}</p><h3>{{ $person->name }}</h3><p>{{ $person->description }}</p>
+                            @if ($person->website_url)<a class="text-link" href="{{ $person->website_url }}" target="_blank" rel="noopener noreferrer">Read more <span aria-hidden="true">↗</span></a>@endif
+                        </div>
+                    </article>
+                @empty
+                    <div class="business-empty"><h3>People profiles are coming soon.</h3><p>Featured stories will appear here as they are added.</p></div>
+                @endforelse
             </div>
-            <p class="profile-coming-soon">Profile and portrait for Biodun Bamigboye are from his <a href="https://biodunbamigboye.com/" target="_blank" rel="noopener noreferrer">official website</a>.</p>
         </section>
 
         <section class="people-section businesses-section" id="local-businesses">
             <div class="section-heading"><div><p class="section-kicker">Local businesses</p><h2>Meet the businesses of Ondo</h2></div><a class="text-link" href="{{ route('explore.index') }}">Browse all places <span aria-hidden="true">→</span></a></div>
             <div class="featured-business-grid">
-                <article class="featured-business-card"><div class="featured-business-mark" aria-hidden="true">H</div><p class="person-meta">Technology · Ondo City</p><h3>Hunnovate</h3><p>A technology company in Ondo City working across programming and software development.</p><a class="text-link" href="https://hunnovate.com" target="_blank" rel="noopener noreferrer">Visit Hunnovate <span aria-hidden="true">↗</span></a></article>
-                <article class="featured-business-card"><div class="featured-business-mark" aria-hidden="true">C</div><p class="person-meta">Local brand · Ondo City</p><h3>Charis Brand</h3><p>A local brand featured in the Explore Ondo business guide.</p></article>
-                <article class="featured-business-card"><div class="featured-business-mark" aria-hidden="true">GE</div><p class="person-meta">Interiors · Ondo City</p><h3>GE Interiors</h3><p>An interiors business featured in the Explore Ondo business guide.</p></article>
+                @forelse ($featuredBusinesses as $businessProfile)
+                    <article class="featured-business-card">
+                        <div class="featured-business-mark">
+                            @if ($businessProfile->image_url)<img src="{{ $businessProfile->image_url }}" alt="" loading="lazy">@else{{ \Illuminate\Support\Str::upper(\Illuminate\Support\Str::substr($businessProfile->name, 0, 1)) }}@endif
+                        </div>
+                        <p class="person-meta">{{ $businessProfile->subtitle }}</p><h3>{{ $businessProfile->name }}</h3><p>{{ $businessProfile->description }}</p>
+                        @if ($businessProfile->website_url)<a class="text-link" href="{{ $businessProfile->website_url }}" target="_blank" rel="noopener noreferrer">Visit business <span aria-hidden="true">↗</span></a>@endif
+                    </article>
+                @empty
+                    <div class="business-empty"><h3>Business profiles are coming soon.</h3><p>Featured businesses will appear here as they are added.</p></div>
+                @endforelse
             </div>
             <aside class="advertise-banner">
                 <div><p class="section-kicker">Own a local business?</p><h3>Put your business in the picture.</h3><p>Reach people exploring Ondo. Contact us to ask about advertising your business on this page.</p></div>
                 <div class="advertise-actions"><a class="advertise-button" href="tel:+2347033410902">Call 0703 341 0902</a><a class="advertise-email" href="mailto:delightadebisi056@gmail.com?subject=Advertise%20on%20Explore%20Ondo">Email us ↗</a></div>
             </aside>
             <div class="business-listing-heading"><p class="section-kicker">Places to discover</p><h3>More local favourites</h3></div>
-            <article class="business-feature">
-                <div class="business-feature-copy"><p class="section-kicker">A local stay · Igbado</p><h3>Nibanola Motherland Resort & Golf</h3><p>A resort and leisure destination on Ondo-Ore Road in Ondo City.</p><a class="button" href="https://www.nibanola.com/" target="_blank" rel="noopener noreferrer">Visit Nibanola <span aria-hidden="true">↗</span></a></div>
-                <div class="business-feature-mark" aria-hidden="true">N</div>
-            </article>
             @if ($businesses->isNotEmpty())
                 <div class="business-grid">
                     @foreach ($businesses as $business)

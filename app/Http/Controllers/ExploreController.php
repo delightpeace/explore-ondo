@@ -3,32 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Place;
+use App\Models\Category;
+use App\Models\FeaturedProfile;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ExploreController extends Controller
 {
-    /** @var array<string, string> */
-    public const CATEGORIES = [
-        'attractions' => 'Attractions & heritage',
-        'schools' => 'Schools & education',
-        'stays' => 'Hotels, stays & resorts',
-        'worship' => 'Churches & places of worship',
-        'markets' => 'Markets & shopping',
-        'food' => 'Food & restaurants',
-        'health' => 'Healthcare',
-        'events' => 'Events & festivals',
-        'motor-parks' => 'Motor parks & transport',
-        'services' => 'Useful services',
-    ];
-
     public function index(Request $request): View
     {
+        $categories = Category::orderBy('sort_order')->orderBy('name')->pluck('name', 'slug')->all();
         $category = $request->query('category');
         $search = trim((string) $request->query('q', ''));
         $places = Place::query()
             ->with('images')
-            ->when(is_string($category) && array_key_exists($category, self::CATEGORIES), function ($query) use ($category): void {
+            ->when(is_string($category) && array_key_exists($category, $categories), function ($query) use ($category): void {
                 $query->where('category', $category);
             })
             ->when($search !== '', function ($query) use ($search): void {
@@ -44,8 +33,8 @@ class ExploreController extends Controller
 
         return view('explore.index', [
             'places' => $places,
-            'categories' => self::CATEGORIES,
-            'selectedCategory' => is_string($category) && array_key_exists($category, self::CATEGORIES) ? $category : null,
+            'categories' => $categories,
+            'selectedCategory' => is_string($category) && array_key_exists($category, $categories) ? $category : null,
             'search' => $search,
         ]);
     }
@@ -56,7 +45,7 @@ class ExploreController extends Controller
 
         return view('explore.show', [
             'place' => $place,
-            'categoryName' => self::CATEGORIES[$place->category] ?? null,
+            'categoryName' => Category::where('slug', $place->category)->value('name'),
         ]);
     }
 
@@ -72,9 +61,13 @@ class ExploreController extends Controller
             ->whereIn('category', ['food', 'stays', 'markets', 'services', 'health'])
             ->orderBy('name')
             ->get();
+        $people = FeaturedProfile::where('type', 'person')->orderBy('sort_order')->orderBy('name')->get();
+        $featuredBusinesses = FeaturedProfile::where('type', 'business')->orderBy('sort_order')->orderBy('name')->get();
 
         return view('explore.people-businesses', [
             'businesses' => $businesses,
+            'people' => $people,
+            'featuredBusinesses' => $featuredBusinesses,
         ]);
     }
 }

@@ -137,8 +137,8 @@
                         <label for="category">Category</label>
                         <select id="category" name="category">
                             <option value="">Choose a category</option>
-                            @foreach (['attractions' => 'Attractions & heritage', 'schools' => 'Schools & education', 'stays' => 'Hotels, stays & resorts', 'worship' => 'Churches & places of worship', 'markets' => 'Markets & shopping', 'food' => 'Food & restaurants', 'health' => 'Healthcare', 'events' => 'Events & festivals', 'motor-parks' => 'Motor parks & transport', 'services' => 'Useful services'] as $value => $label)
-                                <option value="{{ $value }}" @selected(old('category') === $value)>{{ $label }}</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->slug }}" @selected(old('category') === $category->slug)>{{ $category->name }}</option>
                             @endforeach
                         </select>
                         @error('category') <small class="field-error">{{ $message }}</small> @enderror

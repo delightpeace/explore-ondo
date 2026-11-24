@@ -4,20 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Place;
 use App\Models\PlaceImage;
+use App\Models\Category;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class PlaceController extends Controller
 {
-    /** @var list<string> */
-    private const CATEGORIES = ['attractions', 'schools', 'stays', 'worship', 'markets', 'food', 'health', 'events', 'motor-parks', 'services'];
-
     public function index()
     {
         $places = Place::with('images')->get();
 
         return view('places', [
             'places' => $places,
+            'categories' => Category::orderBy('sort_order')->orderBy('name')->get(),
         ]);
     }
 
@@ -25,7 +24,7 @@ class PlaceController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'category' => 'nullable|in:'.implode(',', self::CATEGORIES),
+            'category' => 'nullable|exists:categories,slug',
             'description' => 'nullable|string',
             'address' => 'required|string|max:255',
             'lat' => 'nullable|numeric|between:-90,90',
@@ -52,7 +51,7 @@ class PlaceController extends Controller
     {
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
-            'category' => 'nullable|in:'.implode(',', self::CATEGORIES),
+            'category' => 'nullable|exists:categories,slug',
             'address' => 'required|string|max:255',
             'description' => 'nullable|string',
             'lat' => 'nullable|numeric|between:-90,90',
@@ -96,6 +95,7 @@ class PlaceController extends Controller
 
         return view('detail', [
             'place' => $place,
+            'categories' => Category::orderBy('sort_order')->orderBy('name')->get(),
         ]);
     }
 }

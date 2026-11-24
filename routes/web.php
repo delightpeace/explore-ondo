@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ExploreController;
+use App\Http\Controllers\FeaturedProfileController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PlaceController;
@@ -52,6 +54,32 @@ Route::post('/forgot-password', [AuthController::class, 'requestEMailToResetPass
 Route::get('/places', [PlaceController::class, 'index'])
     ->middleware(SuperAdminAccess::class)
     ->name('places');
+
+Route::get('/admin/categories', [CategoryController::class, 'index'])
+    ->middleware(SuperAdminAccess::class)
+    ->name('admin.categories');
+Route::post('/admin/categories', [CategoryController::class, 'store'])
+    ->middleware(SuperAdminAccess::class)
+    ->name('admin.categories.store');
+Route::put('/admin/categories/{category}', [CategoryController::class, 'update'])
+    ->middleware(SuperAdminAccess::class)
+    ->name('admin.categories.update');
+Route::delete('/admin/categories/{category}', [CategoryController::class, 'destroy'])
+    ->middleware(SuperAdminAccess::class)
+    ->name('admin.categories.destroy');
+
+Route::get('/admin/featured-profiles', [FeaturedProfileController::class, 'index'])
+    ->middleware(SuperAdminAccess::class)
+    ->name('admin.featured-profiles');
+Route::post('/admin/featured-profiles', [FeaturedProfileController::class, 'store'])
+    ->middleware(SuperAdminAccess::class)
+    ->name('admin.featured-profiles.store');
+Route::put('/admin/featured-profiles/{profile}', [FeaturedProfileController::class, 'update'])
+    ->middleware(SuperAdminAccess::class)
+    ->name('admin.featured-profiles.update');
+Route::delete('/admin/featured-profiles/{profile}', [FeaturedProfileController::class, 'destroy'])
+    ->middleware(SuperAdminAccess::class)
+    ->name('admin.featured-profiles.destroy');
 
 // Add a place
 Route::post('/places/add', [PlaceController::class, 'addPlace'])

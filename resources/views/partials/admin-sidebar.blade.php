@@ -6,6 +6,8 @@
     <p class="admin-sidebar-label">Manage</p>
     <nav class="admin-sidebar-nav">
         <a href="{{ route('places') }}" class="{{ request()->routeIs('places*') ? 'is-active' : '' }}" @if (request()->routeIs('places*')) aria-current="page" @endif><span aria-hidden="true">▦</span> Places</a>
+        <a href="{{ route('admin.categories') }}" class="{{ request()->routeIs('admin.categories*') ? 'is-active' : '' }}" @if (request()->routeIs('admin.categories*')) aria-current="page" @endif><span aria-hidden="true">◈</span> Categories</a>
+        <a href="{{ route('admin.featured-profiles') }}" class="{{ request()->routeIs('admin.featured-profiles*') ? 'is-active' : '' }}" @if (request()->routeIs('admin.featured-profiles*')) aria-current="page" @endif><span aria-hidden="true">◎</span> People & businesses</a>
         <a href="{{ route('newsletter.subscribers') }}" class="{{ request()->routeIs('newsletter.subscribers') ? 'is-active' : '' }}" @if (request()->routeIs('newsletter.subscribers')) aria-current="page" @endif><span aria-hidden="true">✉</span> Newsletter emails</a>
     </nav>
     <div class="admin-sidebar-bottom">

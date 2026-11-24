@@ -218,16 +218,9 @@
             Category:
             <select name="category">
                 <option value="">Choose a category</option>
-                <option value="attractions" @selected(old('category', $place->category) === 'attractions')>Attractions & heritage</option>
-                <option value="schools" @selected(old('category', $place->category) === 'schools')>Schools & education</option>
-                <option value="stays" @selected(old('category', $place->category) === 'stays')>Hotels, stays & resorts</option>
-                <option value="worship" @selected(old('category', $place->category) === 'worship')>Churches & places of worship</option>
-                <option value="markets" @selected(old('category', $place->category) === 'markets')>Markets & shopping</option>
-                <option value="food" @selected(old('category', $place->category) === 'food')>Food & restaurants</option>
-                <option value="health" @selected(old('category', $place->category) === 'health')>Healthcare</option>
-                <option value="events" @selected(old('category', $place->category) === 'events')>Events & festivals</option>
-                <option value="motor-parks" @selected(old('category', $place->category) === 'motor-parks')>Motor parks & transport</option>
-                <option value="services" @selected(old('category', $place->category) === 'services')>Useful services</option>
+                @foreach ($categories as $category)
+                    <option value="{{ $category->slug }}" @selected(old('category', $place->category) === $category->slug)>{{ $category->name }}</option>
+                @endforeach
             </select>
         </p>
 

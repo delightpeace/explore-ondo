@@ -53,6 +53,7 @@ a { color: inherit; text-decoration: none; }
 .category-symbol { width: 35px; height: 35px; display: grid; place-items: center; margin-bottom: auto; border-radius: 50%; background: #edf1e1; color: var(--green); font-size: 17px; }
 .category-card strong { margin-top: 17px; font-size: 12px; }
 .category-card > span:last-child { margin-top: 5px; color: var(--muted); font-size: 10px; }
+.category-place-count { margin-top: 5px; color: inherit; font-size: 9px; opacity: .76; }
 .category-card b { margin-left: 5px; color: var(--green); }
 .category-market .category-symbol { background: #f1e9d8; }
 .category-food .category-symbol { background: #fae9df; }
@@ -354,7 +355,7 @@ a { color: inherit; text-decoration: none; }
 .people-count { color: #7d887e; font-size: 11px; }
 .people-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
 .person-card { display: grid; grid-template-columns: 116px minmax(0, 1fr); gap: 20px; min-height: 225px; padding: 20px; border: 1px solid var(--line); border-radius: 9px; background: #fff; box-shadow: 0 8px 25px #1c2b2408; }
-.person-portrait { display: grid; place-items: center; min-height: 180px; overflow: hidden; border-radius: 6px; }
+.person-portrait { display: grid; place-items: center; min-height: 180px; overflow: hidden; border-radius: 6px; background: linear-gradient(150deg, #61744c, #243e32 65%, #c29760); }
 .person-portrait span { display: grid; width: 68px; height: 68px; place-items: center; border: 1px solid #ffffffaa; border-radius: 50%; color: #fff; font: 600 22px 'Playfair Display', Georgia, serif; }
 .person-portrait-gf { background: radial-gradient(circle at 50% 40%, #b5a071 0 18%, transparent 19%), linear-gradient(150deg, #61744c, #243e32 65%, #c29760); }
 .person-portrait-sa { background: radial-gradient(circle at 50% 40%, #d5b176 0 18%, transparent 19%), linear-gradient(150deg, #a25734, #603b32 65%, #d5b176); }
@@ -429,6 +430,7 @@ a { color: inherit; text-decoration: none; }
 .featured-business-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
 .featured-business-card { min-height: 230px; padding: 23px; border: 1px solid var(--line); border-radius: 9px; background: #fff; box-shadow: 0 8px 25px #1c2b2408; }
 .featured-business-mark { width: 48px; height: 48px; display: grid; place-items: center; margin-bottom: 18px; border-radius: 50%; background: #edf1e1; color: var(--green); font: 600 19px 'Playfair Display', Georgia, serif; }
+.featured-business-mark img { width: 100%; height: 100%; object-fit: cover; border-radius: inherit; }
 .featured-business-card h3 { margin: 5px 0 8px; color: var(--ink); font: 600 23px/1.2 'Playfair Display', Georgia, serif; }
 .featured-business-card > p:not(.person-meta) { min-height: 42px; margin: 0 0 14px; color: var(--muted); font-size: 12px; line-height: 1.7; }
 .featured-business-card .text-link { font-size: 11px; font-weight: 700; }
