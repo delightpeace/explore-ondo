@@ -16,7 +16,7 @@ body { margin: 0; background: #faf9f5; color: #1c2b24; font-family: 'DM Sans', s
 a { color: inherit; text-decoration: none; }
 .site-header { width: min(1240px, calc(100% - 64px)); height: 82px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 17px; font-weight: 700; letter-spacing: -.5px; white-space: nowrap; }
-.brand-mark { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; background: var(--green); color: var(--lime); font-size: 18px; }
+.brand-mark { width: 36px; height: 36px; display: block; flex: 0 0 auto; object-fit: contain; border-radius: 50%; background: transparent; }
 .brand-accent { color: #81914c; }
 .main-nav { display: flex; align-items: center; gap: 34px; color: #435149; font-size: 13px; }
 .main-nav a:hover, .text-link:hover { color: #718044; }
@@ -37,13 +37,15 @@ a { color: inherit; text-decoration: none; }
 .intro { padding: 96px 0 28px; display: flex; align-items: end; justify-content: space-between; gap: 50px; }
 .intro h2, .section-heading h2, .about-section h2, .newsletter h2 { margin: 9px 0 0; font: 600 37px/1.18 'Playfair Display', Georgia, serif; letter-spacing: -.8px; }
 .intro-copy { max-width: 430px; margin: 0 0 3px; color: var(--muted); font-size: 13px; line-height: 1.8; }
-.category-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 13px; }
+.category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 13px; }
 .category-card { min-height: 176px; display: flex; flex-direction: column; align-items: flex-start; padding: 20px; border: 1px solid var(--line); border-radius: 8px; background: #fff; transition: transform .2s, box-shadow .2s; }
 .category-market { background: linear-gradient(180deg, #102e2466, #102e24e8), url('https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d6/Iya_Alaje_Market%2C_Ondo.jpg/960px-Iya_Alaje_Market%2C_Ondo.jpg') center 46% / cover no-repeat; color: #fff; }
 .category-food { background: linear-gradient(180deg, #102e2466, #102e24e8), url('https://commons.wikimedia.org/wiki/Special:Redirect/file/Food_Point_Restaurant.jpg') center 46% / cover no-repeat; color: #fff; }
 .category-stay { background: linear-gradient(180deg, #102e2466, #102e24e8), url('https://commons.wikimedia.org/wiki/Special:Redirect/file/From_the_top_of_the_Pele_mountain.jpg') center 46% / cover no-repeat; color: #fff; }
 .category-culture { background: linear-gradient(180deg, #102e2466, #102e24e8), url('https://commons.wikimedia.org/wiki/Special:Redirect/file/Ondo_city_gate.jpg') center 46% / cover no-repeat; color: #fff; }
 .category-services { background: linear-gradient(180deg, #102e2466, #102e24e8), url('https://commons.wikimedia.org/wiki/Special:Redirect/file/Student_Union_Government_building,_Adeyemi_College_of_Education.jpg') center 46% / cover no-repeat; color: #fff; }
+.category-neutral { background: linear-gradient(145deg, #eef2e4, #fff); }
+.category-empty { grid-column: 1 / -1; margin: 0; padding: 20px; border: 1px dashed var(--line); border-radius: 8px; color: var(--muted); font-size: 12px; }
 .category-market > span:last-child, .category-food > span:last-child, .category-stay > span:last-child, .category-culture > span:last-child, .category-services > span:last-child { color: #f2f5ec; }
 .category-market b, .category-food b, .category-stay b, .category-culture b, .category-services b { color: #fff; }
 .category-market .category-symbol, .category-food .category-symbol, .category-stay .category-symbol, .category-culture .category-symbol, .category-services .category-symbol { background: #ffffff35; color: #fff; }
@@ -253,7 +255,7 @@ a { color: inherit; text-decoration: none; }
 .topbar { position: sticky; top: 0; z-index: 1000; width: 100%; background-color: #153f31 !important; color: #fff; box-shadow: 0 2px 10px #102e2414; }
 .topbar-inner { width: min(1240px, calc(100% - 48px)); min-height: 74px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .topbar .brand { color: #fff; font-size: 16px; letter-spacing: -.3px; }
-.topbar .brand-mark { width: 34px; height: 34px; background: var(--lime); color: var(--green); font-size: 18px; }
+.topbar .brand-mark { width: 34px; height: 34px; background: transparent; }
 .topbar-links { display: flex; align-items: center; gap: 20px; color: #e0e8e2; font-size: 12px; }
 .topbar-links a { transition: color .15s; }
 .topbar-links a:hover { color: var(--lime); }

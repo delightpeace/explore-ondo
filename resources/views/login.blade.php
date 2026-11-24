@@ -14,7 +14,7 @@
 <body class="auth-body">
     <main class="auth-layout">
         <section class="auth-story" aria-labelledby="welcome-heading">
-            <a class="brand auth-brand" href="{{ route('home') }}"><span class="brand-mark" aria-hidden="true">✳</span><span>Explore Ondo</span></a>
+            <a class="brand auth-brand" href="{{ route('home') }}"><img class="brand-mark" src="{{ asset('ondo-sun-mark.svg') }}" alt=""><span>Explore Ondo</span></a>
             <div class="auth-story-copy">
                 <p class="eyebrow">Your city guide workspace</p>
                 <h1 id="welcome-heading">Welcome back.</h1>

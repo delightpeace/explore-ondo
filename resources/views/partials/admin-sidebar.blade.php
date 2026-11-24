@@ -1,6 +1,6 @@
 <aside class="admin-sidebar" aria-label="Admin navigation">
     <a class="admin-sidebar-brand" href="{{ route('places') }}">
-        <img class="admin-sidebar-mark" src="{{ asset('favicon.svg') }}" alt="">
+        <img class="admin-sidebar-mark" src="{{ asset('ondo-sun-mark.svg') }}" alt="">
         <span class="admin-sidebar-brand-copy"><strong>Explore Ondo</strong><small>Admin workspace</small></span>
     </a>
     <p class="admin-sidebar-label">Manage</p>

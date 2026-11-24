@@ -18,7 +18,7 @@
         .topbar { background: var(--green); color: var(--white); }
         .topbar-inner { width: min(1240px, calc(100% - 48px)); min-height: 74px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
         .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; letter-spacing: -.3px; }
-        .brand-mark { width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: var(--lime); color: var(--green); font-size: 18px; }
+        .brand-mark { width: 34px; height: 34px; display: block; object-fit: contain; border-radius: 50%; }
         .topbar-links { display: flex; align-items: center; gap: 20px; color: #e0e8e2; font-size: 12px; }
         .topbar-links a:hover { color: var(--lime); }
         main { width: min(1240px, calc(100% - 48px)); margin: 0 auto; padding: 42px 0 70px; }
@@ -84,7 +84,7 @@
 <body class="admin-body">
     <header class="topbar">
         <div class="topbar-inner">
-            <a class="brand" href="{{ route('home') }}"><span class="brand-mark" aria-hidden="true">✳</span><span>Explore Ondo <span style="font-weight:400;color:#c9d7ce">/ Admin</span></span></a>
+            <a class="brand" href="{{ route('home') }}"><img class="brand-mark" src="{{ asset('ondo-sun-mark.svg') }}" alt=""><span>Explore Ondo <span style="font-weight:400;color:#c9d7ce">/ Admin</span></span></a>
             <nav class="topbar-links" aria-label="Admin links">
                 <a href="{{ route('home') }}">View website ↗</a>
                 <a href="{{ route('newsletter.subscribers') }}">Newsletter signups</a>

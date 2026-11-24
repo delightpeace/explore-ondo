@@ -9,7 +9,7 @@ use Illuminate\View\View;
 class ExploreController extends Controller
 {
     /** @var array<string, string> */
-    private const CATEGORIES = [
+    public const CATEGORIES = [
         'attractions' => 'Attractions & heritage',
         'schools' => 'Schools & education',
         'stays' => 'Hotels, stays & resorts',

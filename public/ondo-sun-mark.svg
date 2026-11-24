@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Explore Ondo sunshine mark">
+  <circle cx="24" cy="24" r="23" fill="#d7e889"/>
+  <g fill="none" stroke="#153f31" stroke-linecap="round" stroke-width="2.2">
+    <circle cx="24" cy="24" r="5" fill="#153f31"/>
+    <path d="M24 8v7M24 33v7M8 24h7m18 0h7M12.7 12.7l5 5m12.6 12.6 5 5m0-22.6-5 5m-12.6 12.6-5 5"/>
+  </g>
+</svg>

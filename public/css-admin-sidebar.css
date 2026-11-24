@@ -2,7 +2,7 @@
 .admin-shell { width: 100%; min-height: calc(100vh - 74px); margin: 0; display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 0; align-items: stretch; }
 .admin-sidebar { min-height: calc(100vh - 74px); padding: 28px 20px; display: flex; flex-direction: column; border-radius: 0; background: #153f31; color: #fff; position: sticky; top: 74px; height: calc(100vh - 74px); }
 .admin-sidebar-brand { display: flex; align-items: center; gap: 11px; padding: 2px 5px 25px; color: #fff; text-decoration: none; }
-.admin-sidebar-mark { width: 42px; height: 42px; display: block; object-fit: contain; flex: 0 0 42px; border-radius: 50%; background: #d7e889; padding: 8px; }
+.admin-sidebar-mark { width: 42px; height: 42px; display: block; object-fit: contain; flex: 0 0 42px; border-radius: 50%; }
 .admin-sidebar-brand-copy { display: grid; gap: 3px; }
 .admin-sidebar-brand-copy strong { font-size: 14px; }
 .admin-sidebar-brand-copy small { color: #c5d5ca; font-size: 11px; }

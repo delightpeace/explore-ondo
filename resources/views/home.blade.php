@@ -15,7 +15,7 @@
 <body>
     <header class="topbar">
         <div class="topbar-inner">
-            <a class="brand" href="{{ route('home') }}" aria-label="Explore Ondo home"><span class="brand-mark" aria-hidden="true">✳</span><span>Explore Ondo</span></a>
+            <a class="brand" href="{{ route('home') }}" aria-label="Explore Ondo home"><img class="brand-mark" src="{{ asset('ondo-sun-mark.svg') }}" alt=""><span>Explore Ondo</span></a>
             <nav class="topbar-links" aria-label="Main navigation">
                 <a href="#discover">Discover</a>
                 <a href="#places">Places</a>
@@ -48,11 +48,15 @@
         </section>
 
         <section class="category-grid content-width" aria-label="Explore by category">
-            <a class="category-card category-market" href="{{ route('explore.index', ['category' => 'markets']) }}"><span class="category-symbol">⌂</span><strong>Markets & shopping</strong><span>Local finds and daily life <b>↗</b></span></a>
-            <a class="category-card category-food" href="{{ route('explore.index', ['category' => 'food']) }}"><span class="category-symbol">✳</span><strong>Food & restaurants</strong><span>Good things to eat <b>↗</b></span></a>
-            <a class="category-card category-stay" href="{{ route('explore.index', ['category' => 'stays']) }}"><span class="category-symbol">⌂</span><strong>Stays & resorts</strong><span>Places to rest and unwind <b>↗</b></span></a>
-            <a class="category-card category-culture" href="{{ route('explore.index', ['category' => 'attractions']) }}"><span class="category-symbol">◉</span><strong>Culture & heritage</strong><span>Stories rooted in Ondo <b>↗</b></span></a>
-            <a class="category-card category-services" href="{{ route('explore.index') }}"><span class="category-symbol">＋</span><strong>Schools, faith & more</strong><span>Find useful places nearby <b>↗</b></span></a>
+            @forelse ($categories as $category)
+                <a class="category-card {{ $category['style'] }}" href="{{ route('explore.index', ['category' => $category['slug']]) }}">
+                    <span class="category-symbol" aria-hidden="true">{{ $category['icon'] }}</span>
+                    <strong>{{ $category['name'] }}</strong>
+                    <span>{{ $category['count'] }} {{ \Illuminate\Support\Str::plural('place', $category['count']) }} to explore <b aria-hidden="true">↗</b></span>
+                </a>
+            @empty
+                <p class="category-empty">Place categories will appear here as they are added.</p>
+            @endforelse
         </section>
 
         <section class="places-section" id="places">
@@ -123,7 +127,7 @@
 
     <footer class="public-footer">
         <div class="public-footer-inner">
-            <div class="footer-brand-block"><a class="brand footer-brand" href="{{ route('home') }}"><span class="brand-mark" aria-hidden="true">✳</span><span>Explore Ondo</span></a><p>Discover the Sunshine State.</p></div>
+            <div class="footer-brand-block"><a class="brand footer-brand" href="{{ route('home') }}"><img class="brand-mark" src="{{ asset('ondo-sun-mark.svg') }}" alt=""><span>Explore Ondo</span></a><p>Discover the Sunshine State.</p></div>
             <nav class="footer-nav" aria-label="Footer navigation"><a href="{{ route('explore.index') }}">Explore places</a><a href="{{ route('about-ondo') }}">About Ondo</a><a href="{{ route('people-businesses') }}">People & businesses</a></nav>
             <div class="footer-contact"><span>Made with care in Ondo, Nigeria</span><a href="mailto:hello@exploreondo.com">Contact</a></div>
             <small class="footer-copyright">© {{ date('Y') }} Explore Ondo</small>
