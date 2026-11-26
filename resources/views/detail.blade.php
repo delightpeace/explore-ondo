@@ -158,6 +158,7 @@
 
 <body class="admin-body">
 
+@include('partials.admin-topbar')
 <div class="admin-shell">
     @include('partials.admin-sidebar')
     <main class="admin-page-content">

@@ -15,12 +15,6 @@
         * { box-sizing: border-box; }
         body { margin: 0; background: var(--paper); color: var(--ink); font-family: 'DM Sans', Arial, sans-serif; -webkit-font-smoothing: antialiased; }
         a { color: inherit; text-decoration: none; }
-        .topbar { background: var(--green); color: var(--white); }
-        .topbar-inner { width: min(1240px, calc(100% - 48px)); min-height: 74px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-        .brand { display: inline-flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 700; letter-spacing: -.3px; }
-        .brand-mark { width: 34px; height: 34px; display: block; object-fit: contain; border-radius: 50%; }
-        .topbar-links { display: flex; align-items: center; gap: 20px; color: #e0e8e2; font-size: 12px; }
-        .topbar-links a:hover { color: var(--lime); }
         main { width: min(1240px, calc(100% - 48px)); margin: 0 auto; padding: 42px 0 70px; }
         .page-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 26px; }
         .eyebrow { margin: 0 0 7px; color: #7c8c49; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
@@ -77,21 +71,12 @@
         .empty-state strong { display: block; margin-bottom: 5px; color: var(--ink); font: 600 20px 'Playfair Display', Georgia, serif; }
         .admin-footer { padding-top: 28px; color: #8a938b; font-size: 10px; text-align: center; }
         @media (max-width: 980px) { .dashboard-grid { grid-template-columns: 1fr; } .form-panel { order: 0; } .places-panel { order: 1; } }
-        @media (max-width: 650px) { .topbar-inner, main { width: calc(100% - 30px); } .topbar-inner { min-height: 66px; } .topbar-links { gap: 12px; font-size: 10px; } main { padding-top: 30px; } .page-heading { display: block; } .page-heading .button { margin-top: 17px; } .summary-grid { gap: 8px; } .summary-card { padding: 13px 11px; } .summary-label { min-height: 26px; font-size: 9px; } .summary-value { font-size: 21px; } .places-panel { padding: 16px; } .place-grid { grid-template-columns: 1fr; } .place-cover, .place-cover-placeholder { height: 190px; } }
-        @media (max-width: 390px) { .topbar-links { gap: 8px; } .topbar-links a { font-size: 9px; } .coordinates { grid-template-columns: 1fr; gap: 0; } }
+        @media (max-width: 650px) { main { width: calc(100% - 30px); padding-top: 30px; } .page-heading { display: block; } .page-heading .button { margin-top: 17px; } .summary-grid { gap: 8px; } .summary-card { padding: 13px 11px; } .summary-label { min-height: 26px; font-size: 9px; } .summary-value { font-size: 21px; } .places-panel { padding: 16px; } .place-grid { grid-template-columns: 1fr; } .place-cover, .place-cover-placeholder { height: 190px; } }
+        @media (max-width: 390px) { .coordinates { grid-template-columns: 1fr; gap: 0; } }
     </style>
 </head>
 <body class="admin-body">
-    <header class="topbar">
-        <div class="topbar-inner">
-            <a class="brand" href="{{ route('home') }}"><img class="brand-mark" src="{{ asset('ondo-sun-mark.svg') }}" alt=""><span>Explore Ondo <span style="font-weight:400;color:#c9d7ce">/ Admin</span></span></a>
-            <nav class="topbar-links" aria-label="Admin links">
-                <a href="{{ route('home') }}">View website ↗</a>
-                <a href="{{ route('newsletter.subscribers') }}">Newsletter signups</a>
-                <a href="{{ route('logout') }}">Log out</a>
-            </nav>
-        </div>
-    </header>
+    @include('partials.admin-topbar')
 
     <div class="admin-shell">
         @include('partials.admin-sidebar')

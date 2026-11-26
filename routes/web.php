@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ExploreController;
 use App\Http\Controllers\FeaturedProfileController;
@@ -54,6 +55,10 @@ Route::post('/forgot-password', [AuthController::class, 'requestEMailToResetPass
 Route::get('/places', [PlaceController::class, 'index'])
     ->middleware(SuperAdminAccess::class)
     ->name('places');
+
+Route::get('/admin', [AdminDashboardController::class, 'index'])
+    ->middleware(SuperAdminAccess::class)
+    ->name('admin.dashboard');
 
 Route::get('/admin/categories', [CategoryController::class, 'index'])
     ->middleware(SuperAdminAccess::class)

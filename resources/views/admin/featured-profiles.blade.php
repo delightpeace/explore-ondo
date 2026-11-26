@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="{{ asset('css-admin-sidebar.css') }}?v={{ md5_file(public_path('css-admin-sidebar.css')) }}">
     <style>
         body { margin: 0; background: #f6f7f2; color: #1c2b24; font: 14px 'DM Sans', Arial, sans-serif; }
-        .admin-topbar { min-height: 74px; padding: 0 32px; display: flex; align-items: center; justify-content: space-between; background: #153f31; color: #fff; }
-        .admin-topbar strong { font-size: 14px; }.admin-topbar a { color: #e2eadd; font-size: 12px; text-decoration: none; }
         .page-title { margin-bottom: 24px; }.eyebrow { margin: 0 0 8px; color: #7d8b48; font-size: 10px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; }
         h1, h2, h3, p { margin-top: 0; }.page-title h1 { margin-bottom: 7px; font: 600 36px 'Playfair Display', Georgia, serif; }.page-title p:last-child { color: #68736b; font-size: 13px; }
         .notice { margin-bottom: 18px; padding: 12px 14px; border-radius: 6px; background: #e8f1dd; color: #30552f; font-size: 12px; }
@@ -24,11 +22,11 @@
         .avatar { width: 42px; height: 42px; display: grid; place-items: center; overflow: hidden; border-radius: 50%; background: #eef2e4; color: #153f31; font: 600 17px 'Playfair Display', Georgia, serif; }.avatar img { width: 100%; height: 100%; object-fit: cover; }.summary-copy { flex: 1; }.summary-copy strong { display: block; margin-bottom: 4px; }.summary-copy small { color: #748078; font-size: 10px; }.type-label { padding: 5px 8px; border-radius: 20px; background: #f1f3ec; color: #53634f; font-size: 9px; text-transform: uppercase; }
         .edit-form { padding: 17px 19px 20px; border-top: 1px solid #edf0ea; }.edit-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
         @media(max-width: 900px) { .profile-layout { grid-template-columns: 1fr; } }
-        @media(max-width: 700px) { .admin-topbar { padding: 0 16px; }.field-pair { grid-template-columns: 1fr; }.admin-page-content { padding: 22px 16px 32px !important; } }
+        @media(max-width: 700px) { .field-pair { grid-template-columns: 1fr; }.admin-page-content { padding: 22px 16px 32px !important; } }
     </style>
 </head>
 <body>
-    <header class="admin-topbar"><strong>Explore Ondo · Admin</strong><a href="{{ route('people-businesses') }}" target="_blank" rel="noopener">View public page ↗</a></header>
+    @include('partials.admin-topbar')
     <div class="admin-shell">
         @include('partials.admin-sidebar')
         <main class="admin-page-content">
